@@ -1,0 +1,48 @@
+//Cards
+
+.cards-horizontal {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+    gap: 2rem;
+}
+
+//Card horizontal
+
+.card-horizontal {
+    background-color: $c-white;
+    padding: 2rem;
+    border: .1rem solid $c-black;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    .card__horizontal-img img {
+        max-width: 16rem;
+        max-height: 20.9rem;
+        width: auto;
+        object-fit: contain;
+        outline: .1rem solid $c-black;
+        transition: transform .4s;
+    }
+
+    .card__horizontal-content {
+        padding: 2rem 0 0;
+    }
+
+    ul {
+        list-style: none;       
+    }
+
+    li {
+        padding-bottom: 1rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;  
+        overflow: hidden;
+
+        &:last-child {
+            padding-bottom: 0;
+        }
+    }
+}

@@ -1,0 +1,21 @@
+//Section post single
+
+.section-post-single {
+    padding: 8rem 0;
+
+    .section__inner {
+        max-width: 95rem;
+        margin: 0 auto;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+    }
+
+    .section__inner > * {
+        width: 100%;
+    }
+
+    .section__spinner {
+        text-align: center;
+    }
+}

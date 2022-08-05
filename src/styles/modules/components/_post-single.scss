@@ -1,0 +1,96 @@
+//Post single
+
+.post-single {
+    background-color: $c-white;
+    border-radius: 1.2rem;
+    padding: 4rem;
+    display: grid;
+    grid-template-columns: 14rem calc(100% - 16rem);
+    column-gap: 2rem;
+    align-items: flex-start;
+    position: relative;
+
+    .post__single-img {
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        min-height: 14rem;
+
+        &:hover {
+            img {
+                transform: scale(1.05);
+            }
+        }
+    }
+
+    .post__single-img img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform .4s;
+    }
+
+    .post__single-content {
+        padding: 1rem;
+    }
+
+    .post__single-entry {
+        margin-bottom: 1rem;
+    }
+
+    .post__single-meta {
+        font-size: 1.2rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .post__single-likes-comments {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin: 0 -1.2rem;
+        padding-bottom: 4rem;
+    }
+
+    .post__single-likes,
+    .post__single-comments {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    
+    .post__single-likes svg,
+    .post__single-comments svg,
+    .post__single-edit svg {
+        color: $c-base;
+        font-size: 2rem;
+    }
+
+    .post__single-edit {
+        position: absolute;
+        top: 5.5rem;
+        right: 5.5rem;
+    }
+
+    .post__single-comments-listing {
+        grid-column: -1/1;
+        border-top: 1px solid $c-base;
+        padding-top: 5rem;
+    }
+
+    h5 {
+        color: $c-base;
+        margin-bottom: .5rem;
+    }
+
+    h5 a {
+        text-decoration: none;
+        transition: color .4s;
+
+        &:hover {
+            color: $c-secondary;
+        }
+    }
+}

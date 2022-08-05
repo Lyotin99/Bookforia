@@ -1,0 +1,39 @@
+//Reply accordion
+
+.reply-accordion {
+    position: relative;
+
+    .reply__accordion-head {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    .reply__accordion-body {
+        width: 100%;
+    }
+
+    .reply__accordion-summary {
+        margin: 0 0 2rem;
+        min-height: 1.92rem;
+        padding-left: 5rem;
+        font-size: 1.2rem;
+        text-decoration: underline;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    .MuiAccordionSummary-content {
+        margin: 0;
+    }
+
+    .MuiAccordionSummary-content.Mui-expanded {
+        margin: 0;
+    }
+
+    .MuiAccordionSummary-root.Mui-expanded {
+        min-height: 1.92rem;
+    }
+}

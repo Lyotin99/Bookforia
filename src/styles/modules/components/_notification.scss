@@ -1,0 +1,12 @@
+//Notification
+
+.notification {
+    a {
+        text-decoration: none;
+    }
+
+    .MuiBadge-badge.MuiBadge-anchorOriginTopRightRectangle {
+        color: $c-white;
+        background-color: $c-secondary;
+    }
+}

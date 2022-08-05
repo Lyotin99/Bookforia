@@ -1,0 +1,98 @@
+//Profile
+
+.profile {
+    background-color: $c-white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 .6rem 0 rgba(0,0,0, .2);
+
+    .profile__img {
+        padding-bottom: 100%;
+        border-radius: 1rem;
+        margin-bottom: 2rem ;
+        cursor: pointer;
+
+        &:hover {
+            img {
+                transform: scale(1.05);
+            }
+        }
+    }
+
+    .profile__img img {
+        transition: transform .4s;
+    }
+
+    .profile__edit-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .profile__edit-img-btn {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .profile__content  {
+        padding-bottom: 2rem;
+    }
+
+    .profile__username  {
+        font-size: 2rem;
+        color: $c-base;
+        font-weight: 600;
+    }
+
+    .profile__username a {
+        text-decoration: none;
+        display: block;
+        transition: opacity .4s;
+
+        &:hover {
+            opacity: .7;
+        }
+    }
+
+    .profile__actions {
+        margin: 0 -1.2rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .profile__actions svg {
+        color: $c-base;
+        font-size: 2rem;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    li {
+        padding-bottom: 1rem;
+        padding-left: 3rem;
+        position: relative;
+
+        &:last-child {
+            padding-bottom: 0;
+        }
+    }
+
+    li img,
+    li svg {
+        color: $c-base;
+        font-size: 2rem;
+        max-width: 2rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}

@@ -1,0 +1,15 @@
+//Spinner
+
+.spinner {
+    max-width: 20rem;
+    margin: 0 auto;
+}
+
+.spinner.spinner--small {
+    position: absolute;
+    top: 50%;
+    right: -5rem;
+    transform: translateY(-50%);
+    max-width: 5rem;
+    object-fit: contain;
+}

@@ -1,0 +1,21 @@
+//Section cta
+
+.section-cta {
+    padding: 2rem;
+    background-color: $c-white;
+    border-radius: 1rem;
+    box-shadow: 0 0 .6rem rgba(0,0,0,.2);
+
+    .section__content {
+        text-align: center;
+        padding-bottom: 1rem;
+    }
+
+    .section__actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+    }
+}

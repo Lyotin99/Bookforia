@@ -1,0 +1,36 @@
+//Section form login
+
+.section-form-login {
+    padding: 8rem 0;
+
+    .section__inner {
+        max-width: 60rem;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column;
+        background-color: $c-white;
+        border-radius: 1.2rem;
+        padding: 4rem 8rem;
+    }
+
+    .section__head,
+    .section__body {
+        width: 100%;
+    }
+
+    .section__head {
+        text-align: center;
+        padding-bottom: 4rem;
+    }
+
+    .section__icon {
+        color: $c-base;
+        font-size: 5rem;
+    }
+
+    h1 {
+        color: $c-base;
+    }
+}

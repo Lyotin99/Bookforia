@@ -1,0 +1,29 @@
+//Section sliders
+
+.section-sliders {
+    padding-bottom: 4rem;
+
+    .section__inner {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+    }
+
+    .section__inner > * {
+        width: 100%;
+    }
+
+    .section__slider {
+        padding-bottom: 4rem;
+
+        &:last-child {
+            padding-bottom: 0;
+        }
+    }
+
+    .section__slider h2 {
+        text-transform: uppercase;
+        text-align: center;
+        color: $c-base;
+    }
+}

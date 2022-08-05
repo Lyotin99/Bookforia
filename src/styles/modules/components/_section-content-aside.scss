@@ -1,0 +1,20 @@
+//Section content aside
+
+.section-content-aside {
+    padding: 4rem 0;
+
+    .section__inner {
+        display: grid;
+        grid-template-columns: calc(100% - 40rem) 35rem;
+        gap: 5rem;
+    }
+}
+
+// --saved posts
+
+.section-content-aside--saved-posts {
+    .section__inner {
+        grid-template-columns: calc(100% - 40rem);
+        justify-content: center;
+    }
+}

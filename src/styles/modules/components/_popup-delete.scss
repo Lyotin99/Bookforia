@@ -1,0 +1,23 @@
+//Popup delete
+
+.popup-delete {
+
+    .popup__delete-inner {
+        max-width: 60rem;
+        width: 100%;
+        background-color: $c-white;
+        padding: 2rem;
+        border-radius: 1.2rem;
+    }
+
+    .popup__delete-content {
+        padding-bottom: 2rem;
+    }
+
+    .popup__delete-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 2rem;
+    }
+}

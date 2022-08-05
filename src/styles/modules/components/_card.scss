@@ -1,0 +1,36 @@
+//Card
+
+.card {
+    background-color: $c-white;
+    padding: 2rem;
+    height: 100%;
+    border: .1rem solid $c-black;
+
+    .card__img {
+        padding-bottom: 2rem;
+        
+    }
+
+    .card__img img {
+        max-width: 16rem;
+        max-height: 20.9rem;
+        width: auto;
+        object-fit: contain;
+    }
+
+    ul {
+        list-style: none;       
+    }
+
+    li {
+        padding-bottom: 1rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;  
+        overflow: hidden;
+
+        &:last-child {
+            padding-bottom: 0;
+        }
+    }
+}

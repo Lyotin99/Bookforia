@@ -1,0 +1,28 @@
+//Form popup
+
+.form-popup {
+    * {font-size: 1.4rem;}
+
+    form > div {
+        margin-bottom: 2rem;
+    }
+
+    textarea,
+    input {
+        font-size: 1.6rem;
+        line-height: 1.33;
+    }
+
+    textarea {
+        padding-top: 1rem;
+    }
+    
+    label {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+}

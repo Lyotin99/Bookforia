@@ -1,0 +1,12 @@
+//Footer
+
+.footer {
+    background-color: $c-base;
+    color: $c-white;
+    font-weight: 500;
+    padding: 2rem 0;
+
+    .footer__inner {
+        text-align: center;
+    }
+}

@@ -1,0 +1,63 @@
+//Comment
+
+.comment {
+    display: grid;
+    grid-template-columns: 8rem calc(100% - 10rem);
+    gap: 2rem;
+    position: relative;
+    margin-bottom: 3rem;
+
+    .comment__img {
+        position: relative;
+        height: 8rem;
+        border-radius: 50%;
+    }
+
+    .comment__img a {
+        display: block;
+        text-decoration: none;
+    }
+
+    .comment__img img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .comment__content {
+        background-color: #f1f1f1;
+        border-radius: 1.2rem;
+        padding: 2rem;
+    }
+
+    .comment__meta {
+        font-size: 1.2rem;
+        padding-bottom: 1rem;
+    }
+    
+    .comment__delete-btn {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+    }
+
+    .comment__edit-btn {
+        position: absolute;
+        top: 2rem;
+        right: 6rem;
+    }
+
+    .comment__delete-btn svg,
+    .comment__edit-btn svg {
+        font-size: 2rem;
+        color: $c-base;
+    }
+
+    h5 {
+        margin-bottom: 0.5rem;
+    }
+}

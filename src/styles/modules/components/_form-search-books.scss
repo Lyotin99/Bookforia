@@ -1,0 +1,30 @@
+//Form search books
+
+.form-search-books {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+
+    .form__body {
+        padding-bottom: 2rem;
+    }
+
+    .form_search-error {
+        color: red;
+        padding: .5rem 0 0;
+        display: inline-block;
+    }
+
+    input {
+        width: 100%;
+        height: 4rem;
+        padding: 0  1.5rem;
+        border: none;
+        border-bottom: .1rem solid $c-black;
+        background-color: transparent;
+        font-size: 1.4rem;
+
+        &:focus {
+            border-color: $c-base;
+        }
+    }
+}
