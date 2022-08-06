@@ -2,12 +2,17 @@ import { useState } from "react";
 import { DeleteOutline } from "@material-ui/icons";
 //Redux
 import { useDispatch } from "react-redux";
-import { deleteComment } from "../../../redux/actions/dataActions";
+// import { deleteComment } from "../../redux/actions/dataActions";
 import { Dialog } from "@material-ui/core";
 
 interface Props {
-	postId: string;
-	commentId: string;
+	postId?: string;
+	commentId?: string;
+	replyId?: string;
+	deleteElement:
+		| ((postId: string) => void)
+		| ((postId: string, commentId: string) => void);
+	text: string;
 }
 
 const DeleteComment = (props: Props) => {
@@ -22,7 +27,15 @@ const DeleteComment = (props: Props) => {
 	};
 
 	const handleDeleteComment = () => {
-		dispatch(deleteComment(props.postId, props.commentId));
+		if (props.postId && props.commentId)
+			dispatch(props.deleteElement(props.postId, props.commentId));
+
+		if (props.postId && !props.commentId)
+			dispatch(props.deleteElement(props.postId, ""));
+
+		if (props.commentId && props.replyId)
+			dispatch(props.deleteElement(props.commentId, props.replyId));
+
 		setOpen(false);
 	};
 
@@ -41,7 +54,8 @@ const DeleteComment = (props: Props) => {
 					<div className="popup__delete-inner">
 						<div className="popup__delete-content">
 							<h6>
-								Are you sure you want to delete the comment?
+								Are you sure you want to delete your{" "}
+								{props.text}?
 							</h6>
 						</div>
 

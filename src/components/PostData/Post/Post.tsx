@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import LikeButton from "../../../utils/LikeButton/LikeButton";
-import DeletePost from "../DeletePost/DeletePost";
+import DeletePopup from "../../DeletePopup/DeletePopup";
 //MUI
 import ChatIcon from "@material-ui/icons/Chat";
 
@@ -9,6 +9,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 //Redux
 import { useSelector } from "react-redux";
+import { deletePost } from "../../../redux/actions/dataActions";
 //Interfaces
 import { OnePostData, Posts } from "../../../utils/postInterfaces";
 import SavedButton from "../../../utils/SaveButton/SaveButton";
@@ -36,7 +37,11 @@ const Post = (props: Props) => {
 
 	const deleteButton =
 		user.authenticated && username === user.credentials.username ? (
-			<DeletePost postId={userPostId} />
+			<DeletePopup
+				postId={userPostId}
+				deleteElement={deletePost}
+				text="post"
+			/>
 		) : null;
 
 	const saveBtn = user.authenticated ? (

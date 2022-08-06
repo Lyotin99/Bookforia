@@ -8,7 +8,7 @@ import {
 	AccordionDetails,
 	AccordionSummary,
 } from "@material-ui/core";
-import DeleteReply from "../DeleteReply/DeleteReply";
+import DeletePopup from "../../DeletePopup/DeletePopup";
 import EditReply from "../EditReply/EditReply";
 
 //Dayjs
@@ -16,7 +16,11 @@ import dayjs from "dayjs";
 
 //Redux
 import { useDispatch, useSelector } from "react-redux";
-import { getReplies, PostReply } from "../../../redux/actions/dataActions";
+import {
+	getReplies,
+	PostReply,
+	deleteReply,
+} from "../../../redux/actions/dataActions";
 
 //Interfaces
 import { ReplyData } from "../../../utils/postInterfaces";
@@ -92,9 +96,11 @@ const Reply = (props: Props) => {
 					} = reply;
 					const deleteReplyBtn =
 						data.credentials.username === username ? (
-							<DeleteReply
+							<DeletePopup
 								replyId={replyId}
 								commentId={commentId}
+								deleteElement={deleteReply}
+								text="reply"
 							/>
 						) : (
 							""

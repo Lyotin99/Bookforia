@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
-import DeleteComment from "../DeleteComment/DeleteComment";
+import DeletePopup from "../../DeletePopup/DeletePopup";
 import EditComment from "../EditComment/EditComment";
 import CommentReply from "../../ReplyData/Reply/Reply";
 //Dayjs
 import dayjs from "dayjs";
 //Redux
 import { useSelector } from "react-redux";
+import { deleteComment } from "../../../redux/actions/dataActions";
 //Interfaces
 import { DataPost, Props } from "./CommentsListInterfaces";
 import { CommentsData } from "../../../utils/postInterfaces";
@@ -33,9 +34,11 @@ const CommentsListing = (props: Props) => {
 
 				const deleteCommentBtn =
 					data.user.credentials.username === username ? (
-						<DeleteComment
+						<DeletePopup
 							postId={data.post.postId}
 							commentId={commentId}
+							deleteElement={deleteComment}
+							text="comment"
 						/>
 					) : (
 						""
