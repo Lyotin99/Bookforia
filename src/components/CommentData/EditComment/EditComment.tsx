@@ -1,165 +1,105 @@
-import React, { Component, Fragment } from "react";
+import React, { useState } from "react";
 import { editComment, cleanErrors } from "../../../redux/actions/dataActions";
 //MUI
-import {
-	Button,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogTitle,
-	IconButton,
-	TextField,
-} from "@material-ui/core";
+import { Dialog } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 //Redux
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 interface mapStateToPropsData {
 	UI: { errors: { error: string } };
 }
-interface StateData {
-	open: boolean;
-	body: string;
-	errors: { error: string };
-}
-interface CommentData {
-	body: string;
-}
 interface Props {
 	commentId: string;
 	body: string;
-	editComment?: (commentId: string, body: CommentData) => void;
-	cleanErrors?: () => void;
 }
 
-export class EditComment extends Component<Props> {
-	state: StateData = {
-		open: false,
-		body: "",
-		errors: { error: "" },
+const EditComment = (props: Props) => {
+	const [open, setOpen] = useState<boolean>(false);
+
+	const mapStateToProps = (state: mapStateToPropsData) => ({
+		UI: state.UI,
+	});
+	const data = useSelector(mapStateToProps);
+	const dispatch = useDispatch();
+
+	const handleOpen = () => {
+		setOpen(true);
 	};
 
-	static getDerivedStateFromProps(prevProps: any, prevState: StateData) {
-		if (prevProps.UI)
-			if (prevProps.UI.errors) return { errors: prevProps.UI.errors };
-		if (!prevProps.UI.errors && !prevProps.UI.loading) {
-			const prevStateData = {
-				body: prevState.body,
-				open: prevState.open,
-				errors: prevState.errors,
-			};
-			prevState.body = "";
-			prevState.open = false;
-			prevState.errors.error = "";
-			return prevStateData;
-		}
-
-		return null;
-	}
-
-	PostDetailsToState = (commentBody: string) => {
-		this.setState({
-			body: commentBody,
-		});
-	};
-	handleOpen = () => {
-		this.setState({
-			open: true,
-		});
-
-		this.PostDetailsToState(this.props.body);
-	};
-	handleClose = () => {
-		this.setState({
-			open: false,
-		});
-		if (this.props.cleanErrors) this.props.cleanErrors();
+	const handleClose = () => {
+		setOpen(false);
+		dispatch(cleanErrors());
 	};
 
-	handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		this.setState({
-			[event.target.name]: event.target.value,
-		});
-	};
-
-	handleSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		const reqData = {
-			body: this.state.body,
-		};
-		if (this.props.editComment) {
-			this.props.editComment(this.props.commentId, reqData);
-		}
-		if (this.state.body !== "") {
-			this.handleClose();
+
+		const formData = new FormData(event.currentTarget);
+		const body = String(formData.get("body"));
+
+		dispatch(editComment(props.commentId, { body }));
+
+		if (body !== "") {
+			console.log(body);
+			handleClose();
 		}
 	};
-	render() {
-		const { errors } = this.state;
-		return (
-			<Fragment>
-				<div title="Edit comment">
-					<IconButton
-						onClick={this.handleOpen}
-						style={{
-							float: "right",
-							width: 15,
-							height: 15,
-						}}
-					>
-						<EditIcon
-							color="primary"
-							fontSize="default"
-							style={{ fontSize: 15 }}
-						/>
-					</IconButton>
-				</div>
 
-				<Dialog
-					open={this.state.open}
-					onClose={this.handleClose}
-					fullWidth
-					maxWidth="sm"
-					className="form-popup"
-				>
-					<DialogTitle>Edit comment</DialogTitle>
-					<DialogContent>
-						<form>
-							<TextField
-								name="body"
-								type="text"
-								label="Body"
-								multiline
-								rows="3"
-								error={errors && errors.error ? true : false}
-								helperText={errors ? errors.error : ""}
-								placeholder="Edit your comment."
-								className="body"
-								value={this.state.body}
-								onChange={this.handleChange}
-								fullWidth
-							/>
-						</form>
-						<DialogActions>
-							<Button onClick={this.handleClose} color="primary">
-								Cancel
-							</Button>
+	const { errors } = data.UI;
 
-							<Button onClick={this.handleSubmit} color="primary">
-								Save
-							</Button>
-						</DialogActions>
-					</DialogContent>
-				</Dialog>
-			</Fragment>
-		);
-	}
-}
+	return (
+		<>
+			<button
+				className="btn-popup-show"
+				onClick={handleOpen}
+				title="Edit Comment"
+			>
+				<EditIcon />
+			</button>
 
-const mapStateToProps = (state: mapStateToPropsData) => ({
-	UI: state.UI,
-});
+			<Dialog open={open} onClose={handleClose}>
+				<form className="form-edit" onSubmit={handleSubmit}>
+					<div className="form__body">
+						<div className="form__row">
+							<div className="form__cols">
+								<div className="form__col">
+									<div className="form__label">
+										<label htmlFor="body">
+											Edit your comment
+										</label>
+									</div>
 
-export default connect(mapStateToProps, { editComment, cleanErrors })(
-	EditComment
-);
+									<div className="form__controls">
+										<input
+											id="body"
+											name="body"
+											placeholder="Edit your comment"
+											defaultValue={props.body}
+										/>
+
+										<p className="form__login-error">
+											{errors ? errors.error : ""}
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div className="form__actions">
+						<button className="btn" onClick={handleClose}>
+							Cancel
+						</button>
+
+						<button className="btn btn--blue" type="submit">
+							Save
+						</button>
+					</div>
+				</form>
+			</Dialog>
+		</>
+	);
+};
+
+export default EditComment;
