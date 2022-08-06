@@ -1,0 +1,61 @@
+//Form edit
+
+.form-edit {
+    padding: 2rem;
+    max-width: 60rem;
+    width: 40rem;
+
+    .form__body {
+        padding-bottom: 2rem;
+        width: 100%;
+    }
+
+    .form__actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+    }
+    
+    .form__login-error {
+        color: red;
+        padding: .5rem 0 0;
+        display: inline-block;
+        font-style: italic;
+        font-size: 1.2rem;
+    }
+
+    .form__label {
+        padding-bottom: 1rem;
+    }
+
+    label {
+        font-weight: 600;
+    }
+
+    input {
+        width: 100%;
+        padding: 0 1rem;
+        height: 4rem;
+        border: none;
+        border-bottom: .1rem solid #000;
+        background-color: $c-white;
+        font-size: 1.4rem;
+ 
+        &::placeholder {
+            opacity: .7;
+        }
+ 
+        &:focus {
+            border-color: $c-base;
+        }
+    }
+ 
+     input:-webkit-autofill,
+     input:-webkit-autofill:hover,
+     input:-webkit-autofill:focus,
+     input:-webkit-autofill:active {
+         box-shadow: 0 0 0px 1000px rgb(255,255,255) inset;
+     }
+}
