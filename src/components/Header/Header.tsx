@@ -2,17 +2,20 @@ import { Link } from "react-router-dom";
 import Notifications from "../Notifications/Notifications";
 
 //Redux
-import { connect } from "react-redux";
-interface Props {
-	authenticated: boolean;
-}
+import { useSelector } from "react-redux";
 interface StateData {
 	user: {
 		authenticated: boolean;
 	};
 }
-function Header(props: Props) {
-	const { authenticated } = props;
+
+function Header() {
+	const mapStateToProps = (state: StateData) => ({
+		authenticated: state.user.authenticated,
+	});
+	const data = useSelector(mapStateToProps);
+
+	const { authenticated } = data;
 
 	return (
 		<header className="header">
@@ -59,8 +62,4 @@ function Header(props: Props) {
 	);
 }
 
-const mapStateToProps = (state: StateData) => ({
-	authenticated: state.user.authenticated,
-});
-
-export default connect(mapStateToProps)(Header);
+export default Header;
