@@ -132,7 +132,7 @@ const Notifications = () => {
 				aria-owns={anchorEl ? "simple-menu" : undefined}
 				aria-haspopup="true"
 				onClick={handleOpen}
-				className="btn-notification"
+				className="btn-notifications"
 			>
 				{notificationsIcon}
 			</button>
