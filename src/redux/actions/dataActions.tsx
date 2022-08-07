@@ -30,6 +30,7 @@ import {
 	axiosPut,
 } from "../../utils/AxiosReduxServices";
 import { Dispatch } from "redux";
+import axios from "axios";
 
 export const getSavedPosts = () => (dispatch: Dispatch) => {
 	dispatch({ type: LOADING_DATA });
@@ -150,5 +151,21 @@ export const cleanErrors = () => (dispatch: Dispatch) => {
 
 export const getUserData = (username: string) => (dispatch: Dispatch) => {
 	dispatch({ type: LOADING_DATA });
-	axiosGet(`/user/${username}`, SET_POSTS, SET_POSTS, [], dispatch);
+
+	axios
+		.get(`/user/${username}`, {
+			headers: {
+				Authorization: localStorage.getItem("FBIdToken"),
+			},
+		})
+		.then((res) => {
+			dispatch({ type: SET_POSTS, payload: res.data.posts });
+			console.log(res.data);
+		})
+		.catch(() => {
+			dispatch({
+				type: SET_POSTS,
+				payload: [],
+			});
+		});
 };

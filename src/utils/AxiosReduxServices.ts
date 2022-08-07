@@ -39,7 +39,7 @@ export const axiosGet = (
 			},
 		})
 		.then((res) => {
-			dispatch({ type: resultType, payload: res.data });
+			return dispatch({ type: resultType, payload: res.data });
 		})
 		.catch(() => {
 			dispatch({

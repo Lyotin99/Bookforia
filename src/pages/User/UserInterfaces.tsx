@@ -5,8 +5,7 @@ export interface isOpen {
 }
 
 export interface PropsData {
-	getUserData: (username: string) => void;
-	data: InitialStateData & isOpen;
+	data: InitialStateData;
 	match: {
 		params: {
 			username: string;

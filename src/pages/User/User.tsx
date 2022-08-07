@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserData } from "../../redux/actions/dataActions";
 //Interfaces
 import { PropsData } from "./UserInterfaces";
-import { OnePostData, Credentials } from "../../utils/postInterfaces";
+import { Credentials } from "../../utils/postInterfaces";
 
 const User = (props: PropsData) => {
 	const [profile, setProfile] = useState<Credentials | null>(null);
@@ -43,19 +43,18 @@ const User = (props: PropsData) => {
 	}, [props.match.params.username, props.match.params.postId, dispatch]);
 
 	const { posts, loading } = data.data;
+
 	const postsMarkup = loading ? (
 		<PostSkeleton />
 	) : posts === null ? (
 		<p>No posts from this user</p>
 	) : !postIdParam ? (
-		posts.map((post: OnePostData) => <Post key={post.postId} post={post} />)
+		posts.map((post) => <Post key={post.postId} post={post} />)
 	) : (
-		posts.map((post: OnePostData) => {
+		posts.map((post) => {
 			if (post.postId !== postIdParam) {
 				return <Post key={post.postId} post={post} />;
-			} else {
-				return <Post key={post.postId} post={post} openDialog={true} />;
-			}
+			} else return <Post key={post.postId} post={post} />;
 		})
 	);
 	return (
