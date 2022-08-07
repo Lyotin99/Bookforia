@@ -5,6 +5,11 @@
         text-decoration: none;
     }
 
+    .notification__icon {
+        margin-right: 1rem;
+        line-height: 1;
+    }
+
     .MuiBadge-badge.MuiBadge-anchorOriginTopRightRectangle {
         color: $c-white;
         background-color: $c-secondary;

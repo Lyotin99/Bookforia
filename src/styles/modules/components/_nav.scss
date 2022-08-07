@@ -1,7 +1,7 @@
 //Nav
 
 .nav {
-    ul {
+    > ul {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -9,11 +9,11 @@
         gap: 1.5rem;
     }
 
-    li {
+    > ul > li {
         color: $c-white;
     }
 
-    a {
+    > ul >  li > a {
         text-decoration: none;
         color: $c-white;
         font-size: 1.6rem;

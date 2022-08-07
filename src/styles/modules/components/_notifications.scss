@@ -1,0 +1,28 @@
+//Notifications
+
+.notifications {
+    position: relative;
+    margin-top: 4rem;
+
+    ul {
+        z-index: 100;
+        background-color: $c-white;
+        color: $c-black;
+        border-radius: 1.2rem;
+        padding: 1rem;
+    }
+
+    li {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: .5rem;
+    }
+}
+
+.notifications.is-opened {
+    ul {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
