@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 //Dayjs
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-//Muinpm start
+//Mui
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Badge from "@material-ui/core/Badge";
@@ -15,24 +15,8 @@ import ChatIcon from "@material-ui/icons/Chat";
 import { useSelector, useDispatch } from "react-redux";
 import { markNotificationsRead } from "../../redux/actions/userActions";
 
-interface DateObj {
-	_seconds: number;
-	_nanoseconds: number;
-}
-
-interface NotificationsData {
-	recipient: string;
-	sender: string;
-	createdAt: DateObj;
-	postId: string;
-	type: string;
-	read: boolean;
-	notificationId: string;
-}
-
-interface StateToPropsData {
-	user: { notifications: NotificationsData[] };
-}
+//Interfaces
+import { NotificationsData, StateToPropsData } from "./NotificationsInterfaces";
 
 const Notifications = () => {
 	const [anchorEl, setAnchorEl] = useState<any>(null);
