@@ -16,14 +16,16 @@ import dayjs from "dayjs";
 
 //Redux
 import { useDispatch, useSelector } from "react-redux";
-import {
-	getReplies,
-	PostReply,
-	deleteReply,
-} from "../../../redux/actions/dataActions";
+import { getReplies, deleteReply } from "../../../redux/actions/dataActions";
 
 //Interfaces
-import { ReplyData } from "../../../utils/postInterfaces";
+import {
+	Credentials,
+	InitialStateData,
+	ReplyData,
+	UserData,
+} from "../../../utils/postInterfaces";
+import ReplyForm from "../ReplyForm/ReplyForm";
 
 interface Props {
 	commentId: string;
@@ -31,35 +33,23 @@ interface Props {
 	repliesCount: number;
 }
 
-interface ReplyDataForm {
-	body: string;
+interface mapStateToProps {
+	data: InitialStateData;
+	user: UserData;
 }
 
 const Reply = (props: Props) => {
 	const [expanded, setExpanded] = useState<boolean | string>(false);
-	const [body, setBody] = useState<string>("");
 	const [replyBarStatus, setReplyBarStatus] = useState<string>("");
 
-	const mapStateToProps = (state: any) => ({
+	const mapStateToProps = (state: mapStateToProps) => ({
 		data: state.data,
-		credentials: state.user.credentials,
+		user: state.user,
 	});
 
 	const data = useSelector(mapStateToProps);
 	const dispatch = useDispatch();
-
-	const handleSubmitReplyInput = (
-		event: React.ChangeEvent<HTMLFormElement>
-	) => {
-		event.preventDefault();
-		let reply: ReplyDataForm = {
-			body: body,
-		};
-
-		dispatch(PostReply(props.commentId, reply));
-
-		setBody("");
-	};
+	const { credentials } = data.user;
 
 	const handleSubmit = () => {
 		dispatch(getReplies(props.commentId));
@@ -78,7 +68,6 @@ const Reply = (props: Props) => {
 				setExpanded(panel);
 				setReplyBarStatus("Hide replies");
 			} else setExpanded(false);
-			// setReplyBarStatus()
 		};
 
 	const repliesMarkup =
@@ -95,7 +84,7 @@ const Reply = (props: Props) => {
 						commentId,
 					} = reply;
 					const deleteReplyBtn =
-						data.credentials.username === username ? (
+						credentials.username === username ? (
 							<DeletePopup
 								replyId={replyId}
 								commentId={commentId}
@@ -107,7 +96,7 @@ const Reply = (props: Props) => {
 						);
 
 					const editReply =
-						data.credentials.username === username ? (
+						credentials.username === username ? (
 							<EditReply replyId={replyId} body={body} />
 						) : (
 							""
@@ -177,40 +166,15 @@ const Reply = (props: Props) => {
 			""
 		);
 
-	const customReplyInput = data.credentials.username ? (
-		<div className="form-replies">
-			<div className="form__replies-img">
-				<Link to={`/users/${data.credentials.username}`}>
-					<img
-						src={data.credentials.imageUrl}
-						alt={data.credentials.username}
-					/>
-				</Link>
-			</div>
-
-			<div className="form__replies-form">
-				<form onSubmit={handleSubmitReplyInput}>
-					<input
-						type="text"
-						name="body"
-						placeholder="Write your reply here..."
-					/>
-
-					<p className="form__reply-error"></p>
-
-					<p className="form__reply-helper-text">
-						<em>Press enter to send message</em>
-					</p>
-				</form>
-			</div>
-		</div>
+	const customReplyInput = credentials.username ? (
+		<ReplyForm commentId={props.commentId} />
 	) : (
 		""
 	);
 	return (
 		<div className="reply-accordion">
 			<div className="reply__accordion-head" onClick={handleSubmitReply}>
-				{data.credentials.username ? "Reply" : ""}
+				{credentials.username ? "Reply" : ""}
 			</div>
 
 			<div
