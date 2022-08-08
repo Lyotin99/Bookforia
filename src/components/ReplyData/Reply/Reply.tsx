@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import BookSpinner from "../../../photos/bookSpinner.svg";
 
@@ -20,7 +20,6 @@ import { getReplies, deleteReply } from "../../../redux/actions/dataActions";
 
 //Interfaces
 import {
-	Credentials,
 	InitialStateData,
 	ReplyData,
 	UserData,
@@ -41,6 +40,14 @@ interface mapStateToProps {
 const Reply = (props: Props) => {
 	const [expanded, setExpanded] = useState<boolean | string>(false);
 	const [replyBarStatus, setReplyBarStatus] = useState<string>("");
+
+	useEffect(() => {
+		if (props.repliesCount === 1) {
+			setReplyBarStatus(`${props.repliesCount} Reply`);
+		} else if (props.repliesCount > 1) {
+			setReplyBarStatus(`${props.repliesCount} Replies`);
+		}
+	}, [props.repliesCount]);
 
 	const mapStateToProps = (state: mapStateToProps) => ({
 		data: state.data,
@@ -67,7 +74,10 @@ const Reply = (props: Props) => {
 			if (newExpanded) {
 				setExpanded(panel);
 				setReplyBarStatus("Hide replies");
-			} else setExpanded(false);
+			} else {
+				setExpanded(false);
+				setReplyBarStatus(`${props.repliesCount} Replies`);
+			}
 		};
 
 	const repliesMarkup =
@@ -158,7 +168,7 @@ const Reply = (props: Props) => {
 			)
 		) : data.data.post.comments[props.index].repliesCount > 0 ? (
 			<img
-				className="spinner spinner--small"
+				className="spinner spinner--small spinner--left-aligned"
 				src={BookSpinner}
 				alt="Spinner"
 			/>
@@ -174,7 +184,7 @@ const Reply = (props: Props) => {
 	return (
 		<div className="reply-accordion">
 			<div className="reply__accordion-head" onClick={handleSubmitReply}>
-				{credentials.username ? "Reply" : ""}
+				{replyBarStatus}
 			</div>
 
 			<div

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { PostReply } from "../../../redux/actions/dataActions";
 //Interfaces
-import { Credentials, UserData } from "../../../utils/postInterfaces";
+import { UserData } from "../../../utils/postInterfaces";
 import { ReplyDataForm } from "../../CommentData/CommentsListing/CommentsListInterfaces";
 
 interface MapStateToProps {
