@@ -7,6 +7,7 @@
         position: absolute;
         left: 0;
         top: 0;
+        opacity: 0;
     }
 
     .reply__accordion-body {
@@ -16,7 +17,7 @@
     .reply__accordion-summary {
         margin: 0 0 2rem;
         min-height: 1.92rem;
-        padding-left: 5rem;
+        padding-left: 1rem;
         font-size: 1.2rem;
         text-decoration: underline;
 

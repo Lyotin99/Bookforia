@@ -13,3 +13,8 @@
     max-width: 5rem;
     object-fit: contain;
 }
+
+.spinner.spinner--left-aligned {
+    right: auto;
+    left: 0;
+}
