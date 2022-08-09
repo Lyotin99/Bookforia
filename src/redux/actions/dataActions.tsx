@@ -110,10 +110,20 @@ export const unlikePost = (postId: string) => (dispatch: Dispatch) => {
 	axiosGet(`/post/${postId}/unlike`, UNLIKE_POST, UNLIKE_POST, [], dispatch);
 };
 
-export const getPost = (postId: string) => (dispatch: Dispatch) => {
+export const getPost = (postId: string) => async (dispatch: Dispatch) => {
 	dispatch({ type: LOADING_UI });
-	axiosGet(`/post/${postId}`, SET_POST, SET_POST, [], dispatch);
-	dispatch({ type: STOP_LOADING_UI });
+	let postData = await axiosGet(
+		`/post/${postId}`,
+		SET_POST,
+		SET_POST,
+		[],
+		dispatch
+	);
+
+	if (postData) {
+		dispatch({ type: STOP_LOADING_UI });
+		return postData;
+	}
 };
 
 export const editPost =
