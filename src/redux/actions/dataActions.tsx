@@ -28,7 +28,7 @@ import {
 	axiosGet,
 	axiosPost,
 	axiosPut,
-} from "../../utils/AxiosReduxServices";
+} from "../../services/AxiosReduxServices";
 import { Dispatch } from "redux";
 import axios from "axios";
 

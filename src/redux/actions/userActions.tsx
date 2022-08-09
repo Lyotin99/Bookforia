@@ -7,7 +7,7 @@ import {
 	LOADING_USER,
 	MARK_NOTIFICATIONS_READ,
 } from "../types";
-import { axiosGet, axiosPostNoFetch } from "../../utils/AxiosReduxServices";
+import { axiosGet, axiosPostNoFetch } from "../../services/AxiosReduxServices";
 import axios from "axios";
 import { Dispatch } from "redux";
 

@@ -21,26 +21,25 @@ const User = (props: PropsData) => {
 
 	const data = useSelector(mapStateToProps);
 	const dispatch = useDispatch();
+	const paramsPostId = props.match.params.postId;
+	const paramsUsername = props.match.params.username;
 
 	useEffect(() => {
-		const username = props.match.params.username;
-		const postId = props.match.params.postId;
-
-		if (postId) {
-			setPostIdParam(postId);
+		if (paramsPostId) {
+			setPostIdParam(paramsPostId);
 		}
 
-		dispatch(getUserData(username));
+		dispatch(getUserData(paramsUsername));
 
 		axios
-			.get(`/user/${username}`)
+			.get(`/user/${paramsUsername}`)
 			.then((res) => {
 				setProfile(res.data.credentials);
 			})
 			.catch((err) => {
 				console.log(err);
 			});
-	}, [props.match.params.username, props.match.params.postId, dispatch]);
+	}, [paramsUsername, paramsPostId, dispatch]);
 
 	const { posts, loading } = data.data;
 
