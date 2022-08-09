@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import PostSkeleton from "../../utils/PostSkeleton";
 import ProfileSkeleton from "../../utils/ProfileSkeleton";
 import StaticProfile from "../../components/ProfileData/StaticProfile/StaticProfile";
 import Post from "../../components/PostData/Post/Post";
+import { axiosGet } from "../../services/axiosServices";
 //Redux
 import { useDispatch, useSelector } from "react-redux";
 import { getUserData } from "../../redux/actions/dataActions";
@@ -14,7 +14,6 @@ import { Credentials } from "../../utils/postInterfaces";
 const User = (props: PropsData) => {
 	const [profile, setProfile] = useState<Credentials | null>(null);
 	const [postIdParam, setPostIdParam] = useState<string>("");
-
 	const mapStateToProps = (state: PropsData) => ({
 		data: state.data,
 	});
@@ -25,20 +24,13 @@ const User = (props: PropsData) => {
 	const paramsUsername = props.match.params.username;
 
 	useEffect(() => {
-		if (paramsPostId) {
-			setPostIdParam(paramsPostId);
-		}
+		paramsPostId && setPostIdParam(paramsPostId);
 
 		dispatch(getUserData(paramsUsername));
 
-		axios
-			.get(`/user/${paramsUsername}`)
-			.then((res) => {
-				setProfile(res.data.credentials);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		axiosGet(`/user/${paramsUsername}`).then((data) => {
+			setProfile(data.credentials);
+		});
 	}, [paramsUsername, paramsPostId, dispatch]);
 
 	const { posts, loading } = data.data;
