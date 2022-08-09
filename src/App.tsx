@@ -34,10 +34,8 @@ if (token) {
 
 	if (expirationTime <= Date.now()) {
 		store.dispatch(logoutUser());
-		window.location.pathname = "/";
 	} else {
 		store.dispatch({ type: SET_AUTHENTICATED });
-
 		store.dispatch(getUserData());
 	}
 }
@@ -51,16 +49,8 @@ function App() {
 						<main className="main">
 							<Switch>
 								<Route exact path="/" component={home} />
-								<AuthRoute
-									exact
-									path="/login"
-									component={login}
-								/>
-								<AuthRoute
-									exact
-									path="/signup"
-									component={signup}
-								/>
+								<AuthRoute path="/login" component={login} />
+								<AuthRoute path="/signup" component={signup} />
 								<Route
 									exact
 									path="/users/saved"
@@ -77,12 +67,10 @@ function App() {
 									component={user}
 								/>
 								<Route
-									exact
 									path="/post/:postId"
 									component={SinglePostPage}
 								/>
 								<Route
-									exact
 									path="/library"
 									component={booksCollection}
 								/>
