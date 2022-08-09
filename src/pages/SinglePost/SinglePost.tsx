@@ -27,10 +27,11 @@ const SinglePost = (props: SinglePostProps) => {
 		user: state.user,
 	});
 	const data = useSelector(mapStateToProps);
+	const paramsPostId = props.match.params.postId;
 
 	useEffect(() => {
-		dispatch(getPost(props.match.params.postId));
-	}, [dispatch, props.match.params.postId]);
+		dispatch(getPost(paramsPostId));
+	}, [dispatch, paramsPostId]);
 
 	const {
 		post: { body, createdAt, postId, userImage, username },

@@ -50,7 +50,6 @@
         display: flex;
         flex-wrap: wrap;
         gap: 2rem;
-        margin: 0 -1.2rem;
         padding-bottom: 4rem;
     }
 
@@ -58,6 +57,14 @@
     .post__single-comments {
         display: flex;
         flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .post__single-likes button,
+    .post__single-comments button {
+        padding-right: .5rem;
+        line-height: 1.33;
+        display: flex;
         align-items: center;
     }
     
