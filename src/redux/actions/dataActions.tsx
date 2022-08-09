@@ -170,7 +170,6 @@ export const getUserData = (username: string) => (dispatch: Dispatch) => {
 		})
 		.then((res) => {
 			dispatch({ type: SET_POSTS, payload: res.data.posts });
-			console.log(res.data);
 		})
 		.catch(() => {
 			dispatch({
