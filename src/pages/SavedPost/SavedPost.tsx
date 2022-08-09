@@ -15,7 +15,6 @@ const SavedPost = () => {
 	const mapStateToProps = (state: SavedPostProps) => ({
 		data: state.data,
 	});
-
 	const data = useSelector(mapStateToProps);
 	const dispatch = useDispatch();
 
