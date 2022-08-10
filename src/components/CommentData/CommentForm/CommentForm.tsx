@@ -25,7 +25,7 @@ const CommentForm = (props: CommentFormProps) => {
 			})
 		);
 
-		if (data.post) data.post.commentCount += 1;
+		data.post && data.post.commentCount++;
 		event.currentTarget.reset();
 	};
 
