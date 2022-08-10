@@ -1,4 +1,4 @@
-import { submitComment } from "../../../redux/actions/dataActions";
+import { submitComment } from "../../../redux/actions/commentActions";
 //Redux
 import { useDispatch, useSelector } from "react-redux";
 //Interfaces

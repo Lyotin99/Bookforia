@@ -3,13 +3,12 @@ import LikeButton from "../../../utils/LikeButton/LikeButton";
 import DeletePopup from "../../DeletePopup/DeletePopup";
 //MUI
 import ChatIcon from "@material-ui/icons/Chat";
-
 //Dayjs
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 //Redux
 import { useSelector } from "react-redux";
-import { deletePost } from "../../../redux/actions/dataActions";
+import { deletePost } from "../../../redux/actions/postActions";
 //Interfaces
 import { OnePostData, Posts } from "../../../utils/postInterfaces";
 import SavedButton from "../../../utils/SaveButton/SaveButton";

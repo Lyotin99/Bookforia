@@ -1,6 +1,6 @@
 //Redux
 import { useDispatch, useSelector } from "react-redux";
-import { createPost } from "../../../redux/actions/dataActions";
+import { createPost } from "../../../redux/actions/postActions";
 import { CreatePostProps } from "./CreatePostInterfaces";
 
 const CreatePost = () => {

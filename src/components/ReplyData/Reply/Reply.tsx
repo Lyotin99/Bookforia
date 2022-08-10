@@ -20,7 +20,7 @@ import {
 	getReplies,
 	deleteReply,
 	editReply,
-} from "../../../redux/actions/dataActions";
+} from "../../../redux/actions/replyActions";
 
 //Interfaces
 import {

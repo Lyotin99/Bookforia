@@ -9,7 +9,7 @@ import BookSpinner from "../../photos/bookSpinner.svg";
 import ChatIcon from "@material-ui/icons/Chat";
 //Redux
 import { useDispatch, useSelector } from "react-redux";
-import { getPost, editPost } from "../../redux/actions/dataActions";
+import { getPost, editPost } from "../../redux/actions/postActions";
 //Dayjs
 import dayjs from "dayjs";
 //Interfaces

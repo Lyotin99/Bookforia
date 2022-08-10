@@ -4,7 +4,7 @@ import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 //REDUX
 import { connect } from "react-redux";
-import { savePost, unSavePost } from "../../redux/actions/dataActions";
+import { savePost, unSavePost } from "../../redux/actions/postActions";
 //Interfaces
 import { Posts } from "../postInterfaces";
 interface Props {

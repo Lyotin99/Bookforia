@@ -3,7 +3,7 @@ import Post from "../../components/PostData/Post/Post";
 import PostSkeleton from "../../utils/PostSkeleton";
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
-import { getSavedPosts } from "../../redux/actions/dataActions";
+import { getSavedPosts } from "../../redux/actions/postActions";
 //Interfaces
 import { InitialStateData, OnePostData } from "../../utils/postInterfaces";
 

@@ -4,7 +4,7 @@ import Profile from "../../components/ProfileData/Profile/Profile";
 import Post from "../../components/PostData/Post/Post";
 //Redux
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts } from "../../redux/actions/dataActions";
+import { getPosts } from "../../redux/actions/postActions";
 //Interfaces
 import { OnePostData, InitialStateData } from "../../utils/postInterfaces";
 import CreatePost from "../../components/PostData/CreatePost/CreatePost";

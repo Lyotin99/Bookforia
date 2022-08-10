@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 //Redux
 import { useSelector, useDispatch } from "react-redux";
-import { PostReply } from "../../../redux/actions/dataActions";
+import { PostReply } from "../../../redux/actions/replyActions";
 //Interfaces
 import { UserData } from "../../../utils/postInterfaces";
 import { ReplyDataForm } from "../../CommentData/CommentsListing/CommentsListInterfaces";

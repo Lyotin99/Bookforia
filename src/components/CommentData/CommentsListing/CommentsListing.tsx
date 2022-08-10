@@ -6,7 +6,10 @@ import CommentReply from "../../ReplyData/Reply/Reply";
 import dayjs from "dayjs";
 //Redux
 import { useSelector } from "react-redux";
-import { deleteComment, editComment } from "../../../redux/actions/dataActions";
+import {
+	deleteComment,
+	editComment,
+} from "../../../redux/actions/commentActions";
 //Interfaces
 import { DataPost, CommentsListingProps } from "./CommentsListInterfaces";
 import { CommentsData } from "../../../utils/postInterfaces";
