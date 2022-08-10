@@ -4,7 +4,7 @@ import { Dialog, IconButton } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 //Redux
 import { useSelector, useDispatch } from "react-redux";
-import { editPost } from "../../../redux/actions/dataActions";
+import { cleanErrors, editPost } from "../../../redux/actions/dataActions";
 interface ErrorsData {
 	errors: { error: string };
 	loading: boolean;
@@ -33,6 +33,7 @@ const EditPost = (props: EditPostProps) => {
 
 	const handleClose = () => {
 		setOpen(false);
+		dispatch(cleanErrors());
 	};
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
