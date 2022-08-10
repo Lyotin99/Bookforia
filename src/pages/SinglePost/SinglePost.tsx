@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { EditPost } from "../../components/PostData/EditPost/EditPost";
+import EditPost from "../../components/PostData/EditPost/EditPost";
 import Comments from "../../components/CommentData/CommentsListing/CommentsListing";
 import LikeButton from "../../utils/LikeButton/LikeButton";
 import CommentForm from "../../components/CommentData/CommentForm/CommentForm";
@@ -9,11 +9,7 @@ import BookSpinner from "../../photos/bookSpinner.svg";
 import ChatIcon from "@material-ui/icons/Chat";
 //Redux
 import { useDispatch, useSelector } from "react-redux";
-import {
-	getPost,
-	cleanErrors,
-	editPost,
-} from "../../redux/actions/dataActions";
+import { getPost } from "../../redux/actions/dataActions";
 //Dayjs
 import dayjs from "dayjs";
 //Interfaces
@@ -40,13 +36,7 @@ const SinglePost = (props: SinglePostProps) => {
 
 	const editBtn =
 		data.user?.credentials.username === username ? (
-			<EditPost
-				postId={postId}
-				body={body}
-				editPost={dispatch(editPost)}
-				UI={data.UI}
-				cleanErrors={dispatch(cleanErrors)}
-			/>
+			<EditPost postId={postId} body={body} />
 		) : (
 			""
 		);

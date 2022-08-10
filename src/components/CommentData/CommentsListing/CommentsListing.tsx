@@ -8,10 +8,10 @@ import dayjs from "dayjs";
 import { useSelector } from "react-redux";
 import { deleteComment } from "../../../redux/actions/dataActions";
 //Interfaces
-import { DataPost, Props } from "./CommentsListInterfaces";
+import { DataPost, CommentsListingProps } from "./CommentsListInterfaces";
 import { CommentsData } from "../../../utils/postInterfaces";
 
-const CommentsListing = (props: Props) => {
+const CommentsListing = (props: CommentsListingProps) => {
 	const mapStateToProps = (state: DataPost) => ({
 		post: state.data.post,
 		user: state.user,

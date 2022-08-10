@@ -8,7 +8,7 @@ export interface ReplyDataForm {
 	body: string;
 }
 
-export interface Props {
+export interface CommentsListingProps {
 	comments: CommentsData[];
 }
 

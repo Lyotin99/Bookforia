@@ -9,12 +9,12 @@ import { useSelector, useDispatch } from "react-redux";
 interface mapStateToPropsData {
 	UI: { errors: { error: string } };
 }
-interface Props {
+interface EditCommentProps {
 	commentId: string;
 	body: string;
 }
 
-const EditComment = (props: Props) => {
+const EditComment = (props: EditCommentProps) => {
 	const [open, setOpen] = useState<boolean>(false);
 
 	const mapStateToProps = (state: mapStateToPropsData) => ({
@@ -41,7 +41,6 @@ const EditComment = (props: Props) => {
 		dispatch(editComment(props.commentId, { body }));
 
 		if (body !== "") {
-			console.log(body);
 			handleClose();
 		}
 	};
@@ -88,7 +87,11 @@ const EditComment = (props: Props) => {
 					</div>
 
 					<div className="form__actions">
-						<button className="btn" onClick={handleClose}>
+						<button
+							type="button"
+							className="btn"
+							onClick={handleClose}
+						>
 							Cancel
 						</button>
 

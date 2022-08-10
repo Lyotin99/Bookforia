@@ -1,20 +1,10 @@
-import React, { Component, Fragment } from "react";
+import React, { useState } from "react";
 //MUI
-import {
-	Button,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogTitle,
-	IconButton,
-	TextField,
-} from "@material-ui/core";
+import { Dialog, IconButton } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 //Redux
-import { connect } from "react-redux";
-import { editPost, cleanErrors } from "../../../redux/actions/dataActions";
-//Interfaces
-import { UIData, PostDialogErrorData } from "../../../utils/postInterfaces";
+import { useSelector, useDispatch } from "react-redux";
+import { editPost } from "../../../redux/actions/dataActions";
 interface ErrorsData {
 	errors: { error: string };
 	loading: boolean;
@@ -26,131 +16,92 @@ interface MapStateToPropsData {
 interface EditPostProps {
 	postId: string;
 	body: string;
-	UI?: UIData;
-	editPost?: (postId: string, body: string) => void;
-	cleanErrors?: () => void;
-}
-interface EditPostState {
-	open: boolean;
-	body: string;
-	errors: PostDialogErrorData;
-}
-export class EditPost extends Component<EditPostProps> {
-	state: EditPostState = {
-		open: false,
-		body: "",
-		errors: {},
-	};
-
-	static getDerivedStateFromProps(
-		prevProps: EditPostProps,
-		prevState: EditPostState
-	) {
-		if (prevProps.UI)
-			if (prevProps.UI.errors) return { errors: prevProps.UI.errors };
-		if (prevProps.UI && !prevProps.UI.errors && !prevProps.UI.loading) {
-			const prevStateData = {
-				open: false,
-				body: prevState.body,
-				errors: prevState.errors,
-			};
-			prevStateData.body = "";
-			prevStateData.errors.error = "";
-
-			return prevState;
-		}
-
-		return null;
-	}
-
-	PostDetailsToState = (PostBody: string) => {
-		this.setState({
-			body: PostBody,
-		});
-	};
-	handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		this.setState({
-			[event.target.name]: event.target.value,
-		});
-	};
-	handleOpen = () => {
-		this.setState({
-			open: true,
-		});
-		this.PostDetailsToState(this.props.body);
-	};
-
-	handleClose = () => {
-		this.setState({
-			open: false,
-			errors: {},
-		});
-		if (this.props.cleanErrors) this.props.cleanErrors();
-	};
-
-	handleSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-		event?.preventDefault();
-		if (this.props.editPost) {
-			this.props.editPost(this.props.postId, this.state.body);
-		}
-		if (this.state.body.trim() !== "") {
-			this.handleClose();
-		}
-	};
-	render() {
-		const { errors } = this.state;
-
-		return (
-			<Fragment>
-				<div title="Edit post">
-					<IconButton onClick={this.handleOpen} className="button">
-						<EditIcon color="primary" fontSize="small" />
-					</IconButton>
-				</div>
-
-				<Dialog
-					open={this.state.open}
-					onClose={this.handleClose}
-					fullWidth
-					maxWidth="sm"
-					className="form-popup"
-				>
-					<DialogTitle>Edit post</DialogTitle>
-
-					<DialogContent>
-						<form>
-							<TextField
-								name="body"
-								type="text"
-								label="Body"
-								multiline
-								rows="3"
-								error={errors && errors.error ? true : false}
-								helperText={errors ? errors.error : ""}
-								placeholder="Edit your post."
-								className="body"
-								value={this.state.body}
-								onChange={this.handleChange}
-								fullWidth
-							/>
-						</form>
-						<DialogActions>
-							<Button onClick={this.handleClose} color="primary">
-								Cancel
-							</Button>
-
-							<Button onClick={this.handleSubmit} color="primary">
-								Save
-							</Button>
-						</DialogActions>
-					</DialogContent>
-				</Dialog>
-			</Fragment>
-		);
-	}
 }
 
-const mapStateToProps = (state: MapStateToPropsData) => ({
-	UI: state.UI,
-});
-export default connect(mapStateToProps, { editPost, cleanErrors })(EditPost);
+const EditPost = (props: EditPostProps) => {
+	const [open, setOpen] = useState<boolean>(false);
+
+	const mapStateToProps = (state: MapStateToPropsData) => ({
+		UI: state.UI,
+	});
+	const data = useSelector(mapStateToProps);
+	const dispatch = useDispatch();
+
+	const handleOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
+
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+
+		const formData = new FormData(event.currentTarget);
+		const body = formData.get("body");
+
+		dispatch(editPost(props.postId, String(body)));
+
+		String(body).trim() !== "" && handleClose();
+	};
+
+	const { errors } = data.UI;
+
+	return (
+		<>
+			<div title="Edit post">
+				<IconButton onClick={handleOpen} className="button">
+					<EditIcon color="primary" fontSize="small" />
+				</IconButton>
+			</div>
+
+			<Dialog open={open} onClose={handleClose}>
+				<form className="form-edit" onSubmit={handleSubmit}>
+					<div className="form__body">
+						<div className="form__row">
+							<div className="form__cols">
+								<div className="form__col">
+									<div className="form__label">
+										<label htmlFor="body">
+											Edit your post
+										</label>
+									</div>
+
+									<div className="form__controls">
+										<input
+											id="body"
+											name="body"
+											placeholder="Edit your comment"
+											defaultValue={props.body}
+										/>
+
+										<p className="form__login-error">
+											{errors ? errors.error : ""}
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div className="form__actions">
+						<button
+							className="btn"
+							onClick={handleClose}
+							type="button"
+						>
+							Cancel
+						</button>
+
+						<button className="btn btn--blue" type="submit">
+							Save
+						</button>
+					</div>
+				</form>
+			</Dialog>
+		</>
+	);
+};
+
+export default EditPost;
