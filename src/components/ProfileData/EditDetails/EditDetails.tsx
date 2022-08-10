@@ -1,175 +1,194 @@
-import React, { Fragment } from "react";
+import React, { useState } from "react";
 //MUI
-import {
-	Button,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogTitle,
-	IconButton,
-	TextField,
-} from "@material-ui/core";
+import { Dialog } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 //Redux
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { editUserDetails } from "../../../redux/actions/userActions";
 //Interfaces
-import { Credentials, UserDetails } from "../../../utils/postInterfaces";
+import { Credentials } from "../../../utils/postInterfaces";
 
-interface Props {
-	credentials: Credentials;
-	editUserDetails: (userDetails: UserDetails) => void;
-}
 interface UserCredentials {
 	user: { credentials: Credentials };
 }
 
-interface IsOpen {
-	open: boolean;
-}
-export class EditDetails extends React.Component<Props> {
-	state: UserDetails & IsOpen = {
-		bio: "",
-		website: "",
-		location: "",
-		favoriteQuote: "",
-		favoriteBooks: "",
-		open: false,
-	};
-	mapUserDetailsToState = (credentials: UserDetails) => {
-		this.setState({
-			bio: credentials.bio ? credentials.bio : "",
-			website: credentials.website ? credentials.website : "",
-			location: credentials.location ? credentials.location : "",
-			favoriteBooks: credentials.favoriteBooks
-				? credentials.favoriteBooks
-				: "",
-			favoriteQuote: credentials.favoriteQuote
-				? credentials.favoriteQuote
-				: "",
-		});
-	};
-	handleSubmit = () => {
-		const userDetails = {
-			bio: this.state.bio,
-			website: this.state.website,
-			location: this.state.location,
-			favoriteBooks: this.state.favoriteBooks,
-			favoriteQuote: this.state.favoriteQuote,
-		};
-		this.props.editUserDetails(userDetails);
-		this.handleClose();
-	};
-	handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		this.setState({
-			[event.target.name]: event.target.value,
-		});
-	};
-	handleOpen = () => {
-		this.setState({
-			open: true,
-		});
-		this.mapUserDetailsToState(this.props.credentials);
-	};
-	handleClose = () => {
-		this.setState({
-			open: false,
-		});
-	};
+const EditDetails = () => {
+	const [open, setOpen] = useState<boolean>(false);
 
-	componentDidMount() {
-		const { credentials } = this.props;
-		this.mapUserDetailsToState(credentials);
-	}
+	const mapStateToProps = (state: UserCredentials) => ({
+		credentials: state.user.credentials,
+	});
 
-	render() {
-		return (
-			<Fragment>
-				<div title="Edit details">
-					<IconButton onClick={this.handleOpen} className="button">
-						<EditIcon color="primary" />
-					</IconButton>
-				</div>
-				<Dialog
-					open={this.state.open}
-					onClose={this.handleClose}
-					fullWidth
-					maxWidth="sm"
-					className="form-popup"
-				>
-					<DialogTitle>Edit your details</DialogTitle>
-					<DialogContent>
-						<form>
-							<TextField
-								name="bio"
-								type="text"
-								label="Bio"
-								multiline
-								rows="3"
-								placeholder="A short bio about yourself"
-								className="bio"
-								value={this.state.bio}
-								onChange={this.handleChange}
-								fullWidth
-							/>
-							<TextField
-								name="website"
-								type="text"
-								label="Website"
-								placeholder="Your personal/professional website"
-								className="website"
-								value={this.state.website}
-								onChange={this.handleChange}
-								fullWidth
-							/>
-							<TextField
-								name="location"
-								type="text"
-								label="Location"
-								placeholder="Where do you live?"
-								className="location"
-								value={this.state.location}
-								onChange={this.handleChange}
-								fullWidth
-							/>
-							<TextField
-								name="favoriteBooks"
-								type="text"
-								label="Favorite Books"
-								placeholder="What is/are your favorite book/s"
-								className="favoriteBooks"
-								value={this.state.favoriteBooks}
-								onChange={this.handleChange}
-								fullWidth
-							/>
-							<TextField
-								name="favoriteQuote"
-								type="text"
-								label="Favorite Quote"
-								placeholder="What is your favorite quote?"
-								className="favoriteQuote"
-								value={this.state.favoriteQuote}
-								onChange={this.handleChange}
-								fullWidth
-							/>
-						</form>
-						<DialogActions>
-							<Button onClick={this.handleClose} color="primary">
-								Cancel
-							</Button>
+	const data = useSelector(mapStateToProps);
+	const dispatch = useDispatch();
+	const {
+		credentials: { bio, website, location, favoriteBooks, favoriteQuote },
+	} = data;
 
-							<Button onClick={this.handleSubmit} color="primary">
-								Save
-							</Button>
-						</DialogActions>
-					</DialogContent>
-				</Dialog>
-			</Fragment>
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
+		const formData = new FormData(e.currentTarget);
+		const bio = String(formData.get("bio"));
+		const website = String(formData.get("website"));
+		const location = String(formData.get("location"));
+		const favoriteBooks = String(formData.get("favoriteBooks"));
+		const favoriteQuote = String(formData.get("favoriteQuote"));
+
+		dispatch(
+			editUserDetails({
+				bio,
+				website,
+				location,
+				favoriteBooks,
+				favoriteQuote,
+			})
 		);
-	}
-}
+		handleClose();
+	};
 
-const mapStateToProps = (state: UserCredentials) => ({
-	credentials: state.user.credentials,
-});
-export default connect(mapStateToProps, { editUserDetails })(EditDetails);
+	const handleOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
+
+	return (
+		<>
+			<div title="Edit details">
+				<button onClick={handleOpen} className="button">
+					<EditIcon color="primary" />
+				</button>
+			</div>
+			<Dialog open={open} onClose={handleClose}>
+				<form className="form-edit" onSubmit={handleSubmit}>
+					<div className="form__body">
+						<div className="form__row">
+							<div className="form__cols">
+								<div className="form__col">
+									<div className="form__label">
+										<label htmlFor="bio">Bio</label>
+									</div>
+
+									<div className="form__controls">
+										<input
+											type="text"
+											name="bio"
+											id="bio"
+											defaultValue={bio}
+											placeholder="A short bio about yourself"
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div className="form__row">
+							<div className="form__cols">
+								<div className="form__col">
+									<div className="form__label">
+										<label htmlFor="website">Website</label>
+									</div>
+
+									<div className="form__controls">
+										<input
+											type="text"
+											name="website"
+											id="website"
+											defaultValue={website}
+											placeholder="Your personal/professional website"
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div className="form__row">
+							<div className="form__cols">
+								<div className="form__col">
+									<div className="form__label">
+										<label htmlFor="location">
+											Location
+										</label>
+									</div>
+
+									<div className="form__controls">
+										<input
+											type="text"
+											name="location"
+											id="location"
+											defaultValue={location}
+											placeholder="Where do you live?"
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div className="form__row">
+							<div className="form__cols">
+								<div className="form__col">
+									<div className="form__label">
+										<label htmlFor="favoriteBooks">
+											Favorite Books
+										</label>
+									</div>
+
+									<div className="form__controls">
+										<input
+											type="text"
+											name="favoriteBooks"
+											id="favoriteBooks"
+											defaultValue={favoriteBooks}
+											placeholder="What is/are your favorite book/s"
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div className="form__row">
+							<div className="form__cols">
+								<div className="form__col">
+									<div className="form__label">
+										<label htmlFor="favoriteQuote">
+											Favorite Quote
+										</label>
+									</div>
+
+									<div className="form__controls">
+										<input
+											type="text"
+											name="favoriteQuote"
+											id="favoriteQuote"
+											defaultValue={favoriteQuote}
+											placeholder="What is your favorite quote?"
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div className="form__actions">
+						<button
+							type="button"
+							className="btn btn--blue"
+							onClick={handleClose}
+						>
+							Cancel
+						</button>
+
+						<button type="submit" className="btn">
+							Save
+						</button>
+					</div>
+				</form>
+			</Dialog>
+		</>
+	);
+};
+
+export default EditDetails;

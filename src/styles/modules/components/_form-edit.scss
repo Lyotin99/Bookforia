@@ -5,6 +5,14 @@
     max-width: 60rem;
     width: 40rem;
 
+    .form__row {
+        padding-bottom: 1rem;
+
+        &:last-child {
+            padding-bottom: 0;
+        }
+    }
+
     .form__body {
         padding-bottom: 2rem;
         width: 100%;

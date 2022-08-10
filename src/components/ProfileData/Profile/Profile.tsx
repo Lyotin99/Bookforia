@@ -10,7 +10,6 @@ import PersonIcon from "../../../photos/ico-person.svg";
 import "./profile.css";
 
 //Mui
-import IconButton from "@material-ui/core/IconButton";
 import LocationOn from "@material-ui/icons/LocationOn";
 import LinkIcon from "@material-ui/icons/Link";
 import CalendarToday from "@material-ui/icons/CalendarToday";
@@ -155,9 +154,9 @@ const Profile = () => {
 
 				<div className="profile__actions">
 					<div className="logout" title="Logout">
-						<IconButton onClick={handleLogout}>
+						<button onClick={handleLogout}>
 							<KeyboardReturn />
-						</IconButton>
+						</button>
 					</div>
 
 					<EditDetails />
