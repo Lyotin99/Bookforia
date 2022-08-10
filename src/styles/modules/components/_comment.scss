@@ -48,12 +48,16 @@
     .comment__edit-btn {
         position: absolute;
         top: 2rem;
-        right: 6rem;
+        right: 5.5rem;
+    }
+
+    .comment__edit-btn button  {
+        padding: 0;
     }
 
     .comment__delete-btn svg,
     .comment__edit-btn svg {
-        font-size: 2rem;
+        font-size: 1.8rem;
         color: $c-base;
     }
 
