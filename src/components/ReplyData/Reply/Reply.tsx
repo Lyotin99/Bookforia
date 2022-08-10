@@ -9,14 +9,18 @@ import {
 	AccordionSummary,
 } from "@material-ui/core";
 import DeletePopup from "../../DeletePopup/DeletePopup";
-import EditReply from "../EditReply/EditReply";
+import EditPopup from "../../EditPopup/EditPopup";
 
 //Dayjs
 import dayjs from "dayjs";
 
 //Redux
 import { useDispatch, useSelector } from "react-redux";
-import { getReplies, deleteReply } from "../../../redux/actions/dataActions";
+import {
+	getReplies,
+	deleteReply,
+	editReply,
+} from "../../../redux/actions/dataActions";
 
 //Interfaces
 import {
@@ -105,9 +109,14 @@ const Reply = (props: Props) => {
 							""
 						);
 
-					const editReply =
+					const editReplyBtn =
 						credentials.username === username ? (
-							<EditReply replyId={replyId} body={body} />
+							<EditPopup
+								elementId={replyId}
+								body={body}
+								editElementObject={editReply}
+								text="reply"
+							/>
 						) : (
 							""
 						);
@@ -159,7 +168,7 @@ const Reply = (props: Props) => {
 								</div>
 
 								<div className="reply__edit-btn">
-									{editReply}
+									{editReplyBtn}
 								</div>
 							</div>
 						</div>

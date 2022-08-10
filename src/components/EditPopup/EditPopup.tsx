@@ -1,23 +1,31 @@
 import React, { useState } from "react";
-import { editComment, cleanErrors } from "../../../redux/actions/dataActions";
 //MUI
 import { Dialog } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 //Redux
 import { useSelector, useDispatch } from "react-redux";
-
-interface mapStateToPropsData {
-	UI: { errors: { error: string } };
+import { cleanErrors } from "../../redux/actions/dataActions";
+interface ErrorsData {
+	errors: { error: string };
+	loading: boolean;
 }
-interface EditCommentProps {
-	commentId: string;
+
+interface MapStateToPropsData {
+	UI: ErrorsData;
+}
+
+interface EditPostProps {
+	elementId: string;
 	body: string;
+	text: string;
+	editElement?: (postId: string, body: string) => void;
+	editElementObject?: (postId: string, body: { body: string }) => void;
 }
 
-const EditComment = (props: EditCommentProps) => {
+const EditPost = (props: EditPostProps) => {
 	const [open, setOpen] = useState<boolean>(false);
 
-	const mapStateToProps = (state: mapStateToPropsData) => ({
+	const mapStateToProps = (state: MapStateToPropsData) => ({
 		UI: state.UI,
 	});
 	const data = useSelector(mapStateToProps);
@@ -36,26 +44,33 @@ const EditComment = (props: EditCommentProps) => {
 		event.preventDefault();
 
 		const formData = new FormData(event.currentTarget);
-		const body = String(formData.get("body"));
+		const body = formData.get("body");
 
-		dispatch(editComment(props.commentId, { body }));
+		props.editElement &&
+			dispatch(props.editElement(props.elementId, String(body)));
 
-		if (body !== "") {
-			handleClose();
-		}
+		props.editElementObject &&
+			dispatch(
+				props.editElementObject(props.elementId, { body: String(body) })
+			);
+
+		props.editElementObject &&
+			dispatch(
+				props.editElementObject(props.elementId, { body: String(body) })
+			);
+
+		String(body).trim() !== "" && handleClose();
 	};
 
 	const { errors } = data.UI;
 
 	return (
 		<>
-			<button
-				className="btn-popup-show"
-				onClick={handleOpen}
-				title="Edit Comment"
-			>
-				<EditIcon />
-			</button>
+			<div title={`Edit ${props.text}`}>
+				<button onClick={handleOpen} className="button">
+					<EditIcon />
+				</button>
+			</div>
 
 			<Dialog open={open} onClose={handleClose}>
 				<form className="form-edit" onSubmit={handleSubmit}>
@@ -65,7 +80,7 @@ const EditComment = (props: EditCommentProps) => {
 								<div className="form__col">
 									<div className="form__label">
 										<label htmlFor="body">
-											Edit your comment
+											Edit your {props.text}
 										</label>
 									</div>
 
@@ -88,9 +103,9 @@ const EditComment = (props: EditCommentProps) => {
 
 					<div className="form__actions">
 						<button
-							type="button"
 							className="btn"
 							onClick={handleClose}
+							type="button"
 						>
 							Cancel
 						</button>
@@ -105,4 +120,4 @@ const EditComment = (props: EditCommentProps) => {
 	);
 };
 
-export default EditComment;
+export default EditPost;

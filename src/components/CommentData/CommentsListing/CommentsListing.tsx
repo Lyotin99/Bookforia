@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import DeletePopup from "../../DeletePopup/DeletePopup";
-import EditComment from "../EditComment/EditComment";
+import EditPopup from "../../EditPopup/EditPopup";
 import CommentReply from "../../ReplyData/Reply/Reply";
 //Dayjs
 import dayjs from "dayjs";
 //Redux
 import { useSelector } from "react-redux";
-import { deleteComment } from "../../../redux/actions/dataActions";
+import { deleteComment, editComment } from "../../../redux/actions/dataActions";
 //Interfaces
 import { DataPost, CommentsListingProps } from "./CommentsListInterfaces";
 import { CommentsData } from "../../../utils/postInterfaces";
@@ -44,9 +44,14 @@ const CommentsListing = (props: CommentsListingProps) => {
 						""
 					);
 
-				const editComment =
+				const editCommentBtn =
 					data.user.credentials.username === username ? (
-						<EditComment commentId={commentId} body={body} />
+						<EditPopup
+							elementId={commentId}
+							body={body}
+							editElementObject={editComment}
+							text="comment"
+						/>
 					) : (
 						""
 					);
@@ -92,7 +97,9 @@ const CommentsListing = (props: CommentsListingProps) => {
 							{deleteCommentBtn}
 						</div>
 
-						<div className="comment__edit-btn">{editComment}</div>
+						<div className="comment__edit-btn">
+							{editCommentBtn}
+						</div>
 						<div className="replies">
 							<CommentReply
 								commentId={commentId}
