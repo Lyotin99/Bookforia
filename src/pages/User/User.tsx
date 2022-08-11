@@ -4,21 +4,26 @@ import ProfileSkeleton from "../../utils/ProfileSkeleton";
 import StaticProfile from "../../components/ProfileData/StaticProfile/StaticProfile";
 import Post from "../../components/PostData/Post/Post";
 import { axiosGet } from "../../services/axiosServices";
+import useReduxSelector from "../../hooks/useReduxSelector";
 //Redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getUserData } from "../../redux/actions/dataActions";
 //Interfaces
-import { PropsData } from "./UserInterfaces";
 import { Credentials } from "../../utils/postInterfaces";
+
+interface PropsData {
+	match: {
+		params: {
+			username: string;
+			postId: string;
+		};
+	};
+}
 
 const User = (props: PropsData) => {
 	const [profile, setProfile] = useState<Credentials | null>(null);
 	const [postIdParam, setPostIdParam] = useState<string>("");
-	const mapStateToProps = (state: PropsData) => ({
-		data: state.data,
-	});
-
-	const data = useSelector(mapStateToProps);
+	const data = useReduxSelector();
 	const dispatch = useDispatch();
 	const paramsPostId = props.match.params.postId;
 	const paramsUsername = props.match.params.username;

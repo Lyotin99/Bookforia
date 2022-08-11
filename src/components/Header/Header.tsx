@@ -1,21 +1,10 @@
 import { Link } from "react-router-dom";
 import Notifications from "../Notifications/Notifications";
-
-//Redux
-import { useSelector } from "react-redux";
-interface StateData {
-	user: {
-		authenticated: boolean;
-	};
-}
+import useReduxSelector from "../../hooks/useReduxSelector";
 
 function Header() {
-	const mapStateToProps = (state: StateData) => ({
-		authenticated: state.user.authenticated,
-	});
-	const data = useSelector(mapStateToProps);
-
-	const { authenticated } = data;
+	const data = useReduxSelector();
+	const { authenticated } = data.user;
 
 	return (
 		<header className="header">

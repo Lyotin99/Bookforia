@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import BookSpinner from "../../../photos/bookSpinner.svg";
-
+import ReplyForm from "../ReplyForm/ReplyForm";
+import useReduxSelector from "../../../hooks/useReduxSelector";
 //MUI
 import {
 	Accordion,
@@ -10,38 +11,25 @@ import {
 } from "@material-ui/core";
 import DeletePopup from "../../DeletePopup/DeletePopup";
 import EditPopup from "../../EditPopup/EditPopup";
-
 //Dayjs
 import dayjs from "dayjs";
-
 //Redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
 	getReplies,
 	deleteReply,
 	editReply,
 } from "../../../redux/actions/replyActions";
-
 //Interfaces
-import {
-	InitialStateData,
-	ReplyData,
-	UserData,
-} from "../../../utils/postInterfaces";
-import ReplyForm from "../ReplyForm/ReplyForm";
+import { ReplyData } from "../../../utils/postInterfaces";
 
-interface Props {
+interface ReplyProps {
 	commentId: string;
 	index: number;
 	repliesCount: number;
 }
 
-interface mapStateToProps {
-	data: InitialStateData;
-	user: UserData;
-}
-
-const Reply = (props: Props) => {
+const Reply = (props: ReplyProps) => {
 	const [expanded, setExpanded] = useState<boolean | string>(false);
 	const [replyBarStatus, setReplyBarStatus] = useState<string>("");
 
@@ -53,12 +41,7 @@ const Reply = (props: Props) => {
 		}
 	}, [props.repliesCount]);
 
-	const mapStateToProps = (state: mapStateToProps) => ({
-		data: state.data,
-		user: state.user,
-	});
-
-	const data = useSelector(mapStateToProps);
+	const data = useReduxSelector();
 	const dispatch = useDispatch();
 	const { credentials } = data.user;
 

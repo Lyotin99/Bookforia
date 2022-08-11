@@ -1,42 +1,26 @@
 import { Link } from "react-router-dom";
 import EditDetails from "../EditDetails/EditDetails";
 import ProfileSkeleton from "../../../utils/PostSkeleton";
-
+import useReduxSelector from "../../../hooks/useReduxSelector";
 //Icons
 import StarIcon from "../../../photos/ico-star.svg";
 import QuoteIcon from "../../../photos/ico-quote.svg";
 import DescIcon from "../../../photos/ico-desc.svg";
 import PersonIcon from "../../../photos/ico-person.svg";
 import "./profile.css";
-
 //Mui
 import LocationOn from "@material-ui/icons/LocationOn";
 import LinkIcon from "@material-ui/icons/Link";
 import CalendarToday from "@material-ui/icons/CalendarToday";
 import { KeyboardReturn } from "@material-ui/icons";
-
 //Dayjs
 import dayjs from "dayjs";
-
 //Redux
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { uploadImage, logoutUser } from "../../../redux/actions/userActions";
 
-//Interfaces
-import { Posts } from "../../../utils/postInterfaces";
-
-interface PropsData {
-	user: Posts;
-	loading?: boolean;
-}
-
 const Profile = () => {
-	const mapStateToProps = (state: PropsData) => ({
-		user: state.user,
-		loading: state.loading,
-	});
-
-	const data = useSelector(mapStateToProps);
+	const data = useReduxSelector();
 	const dispatch = useDispatch();
 
 	const handleLogout = () => {
@@ -45,7 +29,7 @@ const Profile = () => {
 	const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const image = event.target.files ? event.target.files[0] : "";
 		const formData = new FormData();
-		if (image) formData.append("image", image, image.name);
+		image && formData.append("image", image, image.name);
 		dispatch(uploadImage(formData));
 	};
 
@@ -63,7 +47,7 @@ const Profile = () => {
 			},
 			authenticated,
 		},
-		loading,
+		UI: { loading },
 	} = data;
 
 	let profileMarkup = !loading ? (

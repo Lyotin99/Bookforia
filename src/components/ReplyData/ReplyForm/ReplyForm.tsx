@@ -1,22 +1,11 @@
 import { Link } from "react-router-dom";
-
+import useReduxSelector from "../../../hooks/useReduxSelector";
 //Redux
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { PostReply } from "../../../redux/actions/replyActions";
-//Interfaces
-import { UserData } from "../../../utils/postInterfaces";
-import { ReplyDataForm } from "../../CommentData/CommentsListing/CommentsListInterfaces";
-
-interface MapStateToProps {
-	user: UserData;
-}
 
 const ReplyForm = (props: { commentId: string }) => {
-	const mapStateToProps = (state: MapStateToProps) => ({
-		user: state.user,
-	});
-
-	const data = useSelector(mapStateToProps);
+	const data = useReduxSelector();
 	const dispatch = useDispatch();
 	const { credentials } = data.user;
 
@@ -28,11 +17,7 @@ const ReplyForm = (props: { commentId: string }) => {
 		const formData = new FormData(event.currentTarget);
 		const body = formData.get("body");
 
-		let reply: ReplyDataForm = {
-			body: String(body),
-		};
-
-		dispatch(PostReply(props.commentId, reply));
+		dispatch(PostReply(props.commentId, { body: String(body) }));
 
 		event.currentTarget.reset();
 	};

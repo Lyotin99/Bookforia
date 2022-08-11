@@ -1,18 +1,11 @@
 import React, { useState } from "react";
+import useReduxSelector from "../../hooks/useReduxSelector";
 //MUI
 import { Dialog } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 //Redux
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { cleanErrors } from "../../redux/actions/dataActions";
-interface ErrorsData {
-	errors: { error: string };
-	loading: boolean;
-}
-
-interface MapStateToPropsData {
-	UI: ErrorsData;
-}
 
 interface EditPostProps {
 	elementId: string;
@@ -25,10 +18,7 @@ interface EditPostProps {
 const EditPost = (props: EditPostProps) => {
 	const [open, setOpen] = useState<boolean>(false);
 
-	const mapStateToProps = (state: MapStateToPropsData) => ({
-		UI: state.UI,
-	});
-	const data = useSelector(mapStateToProps);
+	const data = useReduxSelector();
 	const dispatch = useDispatch();
 
 	const handleOpen = () => {

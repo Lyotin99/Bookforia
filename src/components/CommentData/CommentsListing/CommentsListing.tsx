@@ -2,26 +2,29 @@ import { Link } from "react-router-dom";
 import DeletePopup from "../../DeletePopup/DeletePopup";
 import EditPopup from "../../EditPopup/EditPopup";
 import CommentReply from "../../ReplyData/Reply/Reply";
+import useReduxSelector from "../../../hooks/useReduxSelector";
 //Dayjs
 import dayjs from "dayjs";
 //Redux
-import { useSelector } from "react-redux";
 import {
 	deleteComment,
 	editComment,
 } from "../../../redux/actions/commentActions";
 //Interfaces
-import { DataPost, CommentsListingProps } from "./CommentsListInterfaces";
 import { CommentsData } from "../../../utils/postInterfaces";
 
-const CommentsListing = (props: CommentsListingProps) => {
-	const mapStateToProps = (state: DataPost) => ({
-		post: state.data.post,
-		user: state.user,
-	});
-	const data = useSelector(mapStateToProps);
+export interface CommentsListingProps {
+	comments: CommentsData[];
+}
 
+const CommentsListing = (props: CommentsListingProps) => {
+	const data = useReduxSelector();
 	const { comments } = props;
+	const {
+		data: {
+			post: { postId },
+		},
+	} = data;
 
 	return (
 		<>
@@ -38,7 +41,7 @@ const CommentsListing = (props: CommentsListingProps) => {
 				const deleteCommentBtn =
 					data.user.credentials.username === username ? (
 						<DeletePopup
-							postId={data.post.postId}
+							postId={postId}
 							commentId={commentId}
 							deleteElement={deleteComment}
 							text="comment"

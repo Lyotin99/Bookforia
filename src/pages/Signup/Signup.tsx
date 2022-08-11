@@ -1,19 +1,16 @@
 import { Link } from "react-router-dom";
 import BookSpinner from "../../photos/bookSpinner.svg";
+import useReduxSelector from "../../hooks/useReduxSelector";
 //MUI
 import MenuBookIcon from "@material-ui/icons/MenuBook";
 //Redux
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { signupUser } from "../../redux/actions/userActions";
 //Interfaces
-import { SignupProps } from "./SignupInterfaces";
+import { History } from "../../utils/postInterfaces";
 
-const Signup = (props: SignupProps) => {
-	const mapStateToProps = (state: SignupProps) => ({
-		user: state.user,
-		UI: state.UI,
-	});
-	const data = useSelector(mapStateToProps);
+const Signup = (props: { history: History }) => {
+	const data = useReduxSelector();
 	const dispatch = useDispatch();
 	const { loading, errors } = data.UI;
 

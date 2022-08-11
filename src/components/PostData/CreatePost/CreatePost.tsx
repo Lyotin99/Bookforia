@@ -1,16 +1,15 @@
+import useReduxSelector from "../../../hooks/useReduxSelector";
 //Redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createPost } from "../../../redux/actions/postActions";
-import { CreatePostProps } from "./CreatePostInterfaces";
 
 const CreatePost = () => {
-	const mapStateToProps = (state: CreatePostProps) => ({
-		user: state.user,
-		UI: state.UI,
-	});
-
-	const data = useSelector(mapStateToProps);
+	const data = useReduxSelector();
 	const dispatch = useDispatch();
+	const {
+		user,
+		UI: { errors },
+	} = data;
 
 	const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -21,11 +20,6 @@ const CreatePost = () => {
 		dispatch(createPost({ body: String(body) }));
 		event.currentTarget.reset();
 	};
-
-	const {
-		user,
-		UI: { errors },
-	} = data;
 
 	return user?.credentials.username ? (
 		<form className="form-post" onSubmit={handleSubmit}>

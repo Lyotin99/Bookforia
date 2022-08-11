@@ -5,24 +5,27 @@ import Comments from "../../components/CommentData/CommentsListing/CommentsListi
 import LikeButton from "../../utils/LikeButton/LikeButton";
 import CommentForm from "../../components/CommentData/CommentForm/CommentForm";
 import BookSpinner from "../../photos/bookSpinner.svg";
+import useReduxSelector from "../../hooks/useReduxSelector";
 //MUI
 import ChatIcon from "@material-ui/icons/Chat";
 //Redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getPost, editPost } from "../../redux/actions/postActions";
 //Dayjs
 import dayjs from "dayjs";
-//Interfaces
-import { SinglePostProps, StateToPropsData } from "./SinglePostInterfaces";
+
+export interface SinglePostProps {
+	match: {
+		params: {
+			username: string;
+			postId: string;
+		};
+	};
+}
 
 const SinglePost = (props: SinglePostProps) => {
 	const dispatch = useDispatch();
-	const mapStateToProps = (state: StateToPropsData) => ({
-		post: state.data.post,
-		UI: state.UI,
-		user: state.user,
-	});
-	const data = useSelector(mapStateToProps);
+	const data = useReduxSelector();
 	const paramsPostId = props.match.params.postId;
 
 	useEffect(() => {
@@ -30,7 +33,18 @@ const SinglePost = (props: SinglePostProps) => {
 	}, [dispatch, paramsPostId]);
 
 	const {
-		post: { body, createdAt, postId, userImage, username },
+		data: {
+			post: {
+				body,
+				createdAt,
+				postId,
+				userImage,
+				username,
+				comments,
+				likeCount,
+				commentCount,
+			},
+		},
 		UI: { loading },
 	} = data;
 
@@ -83,7 +97,7 @@ const SinglePost = (props: SinglePostProps) => {
 					<div className="post__single-likes">
 						<LikeButton postId={postId} />
 
-						<span>{data.post.likeCount} likes</span>
+						<span>{likeCount} likes</span>
 					</div>
 
 					<div className="post__single-comments" title="Comments">
@@ -91,7 +105,7 @@ const SinglePost = (props: SinglePostProps) => {
 							<ChatIcon color="primary" />
 						</button>
 
-						<span>{data.post.commentCount} Comments</span>
+						<span>{commentCount} Comments</span>
 					</div>
 					<div className="post__single-edit">{editBtn}</div>
 				</div>
@@ -101,9 +115,7 @@ const SinglePost = (props: SinglePostProps) => {
 				<CommentForm postId={postId} />
 
 				<div className="comments">
-					{data.post.comments && (
-						<Comments comments={data.post.comments} />
-					)}
+					{comments && <Comments comments={comments} />}
 				</div>
 			</div>
 		</div>

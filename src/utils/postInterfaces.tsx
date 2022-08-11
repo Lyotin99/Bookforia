@@ -3,7 +3,7 @@ export interface UserData {
 	authenticated: boolean;
 	loading: boolean;
 	credentials: Credentials;
-	notifications: NotificationsData;
+	notifications: NotificationsData & NotificationsData[];
 }
 export interface UserDetails {
 	bio: string;
@@ -118,7 +118,10 @@ export interface SignupErrorsData {
 }
 export interface UIData {
 	loading: boolean;
-	errors: CommentErrorsData | PostDialogErrorData;
+	errors: CommentErrorsData &
+		PostDialogErrorData & { comments: string } & SignupErrorsData & {
+			body: string;
+		};
 }
 export interface SignupUIData {
 	loading: boolean;

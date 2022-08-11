@@ -1,21 +1,15 @@
 import { useEffect } from "react";
 import Post from "../../components/PostData/Post/Post";
 import PostSkeleton from "../../utils/PostSkeleton";
+import useReduxSelector from "../../hooks/useReduxSelector";
 //REDUX
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getSavedPosts } from "../../redux/actions/postActions";
 //Interfaces
-import { InitialStateData, OnePostData } from "../../utils/postInterfaces";
-
-interface SavedPostProps {
-	data: InitialStateData;
-}
+import { OnePostData } from "../../utils/postInterfaces";
 
 const SavedPost = () => {
-	const mapStateToProps = (state: SavedPostProps) => ({
-		data: state.data,
-	});
-	const data = useSelector(mapStateToProps);
+	const data = useReduxSelector();
 	const dispatch = useDispatch();
 
 	useEffect(() => {

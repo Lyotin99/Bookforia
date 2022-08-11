@@ -2,24 +2,20 @@ import { useEffect } from "react";
 import PostSkeleton from "../../utils/PostSkeleton";
 import Profile from "../../components/ProfileData/Profile/Profile";
 import Post from "../../components/PostData/Post/Post";
+import useReduxSelector from "../../hooks/useReduxSelector";
 //Redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getPosts } from "../../redux/actions/postActions";
 //Interfaces
-import { OnePostData, InitialStateData } from "../../utils/postInterfaces";
+import { OnePostData } from "../../utils/postInterfaces";
 import CreatePost from "../../components/PostData/CreatePost/CreatePost";
 
-interface HomepageProps {
-	data: InitialStateData;
-}
-
 const Homepage = () => {
-	const mapStateToProps = (state: HomepageProps) => ({
-		data: state.data,
-	});
-	const data = useSelector(mapStateToProps);
+	const data = useReduxSelector();
 	const dispatch = useDispatch();
-	const { posts, loading } = data.data;
+	const {
+		data: { posts, loading },
+	} = data;
 
 	useEffect(() => {
 		dispatch(getPosts());

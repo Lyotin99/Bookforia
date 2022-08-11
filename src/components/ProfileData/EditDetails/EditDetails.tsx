@@ -1,28 +1,26 @@
 import React, { useState } from "react";
+import useReduxSelector from "../../../hooks/useReduxSelector";
 //MUI
 import { Dialog } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 //Redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { editUserDetails } from "../../../redux/actions/userActions";
-//Interfaces
-import { Credentials } from "../../../utils/postInterfaces";
-
-interface UserCredentials {
-	user: { credentials: Credentials };
-}
 
 const EditDetails = () => {
 	const [open, setOpen] = useState<boolean>(false);
-
-	const mapStateToProps = (state: UserCredentials) => ({
-		credentials: state.user.credentials,
-	});
-
-	const data = useSelector(mapStateToProps);
+	const data = useReduxSelector();
 	const dispatch = useDispatch();
 	const {
-		credentials: { bio, website, location, favoriteBooks, favoriteQuote },
+		user: {
+			credentials: {
+				bio,
+				website,
+				location,
+				favoriteBooks,
+				favoriteQuote,
+			},
+		},
 	} = data;
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

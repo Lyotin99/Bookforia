@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useReduxSelector from "../../hooks/useReduxSelector";
 //Dayjs
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -10,23 +11,17 @@ import Badge from "@material-ui/core/Badge";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ChatIcon from "@material-ui/icons/Chat";
-
 //Redux
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { markNotificationsRead } from "../../redux/actions/userActions";
-
 //Interfaces
-import { NotificationsData, StateToPropsData } from "./NotificationsInterfaces";
+import { NotificationsData } from "../../utils/postInterfaces";
 
 const Notifications = () => {
 	const [anchorEl, setAnchorEl] = useState<any>(null);
-
-	const mapStateToProps = (state: StateToPropsData) => ({
-		notifications: state.user.notifications,
-	});
-
-	const data = useSelector(mapStateToProps);
+	const data = useReduxSelector();
 	const dispatch = useDispatch();
+	const { notifications } = data.user;
 
 	const handleOpen = (
 		event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -39,7 +34,7 @@ const Notifications = () => {
 	};
 
 	const onMenuOpened = () => {
-		let unreadNotificationsIds = data.notifications
+		let unreadNotificationsIds = notifications
 			.filter((not) => !not.read)
 			.map((not) => not.notificationId);
 
@@ -47,7 +42,6 @@ const Notifications = () => {
 	};
 
 	dayjs.extend(relativeTime);
-	const notifications = data.notifications;
 	let notificationsIcon;
 
 	if (notifications && notifications.length > 0) {

@@ -1,17 +1,16 @@
 import { submitComment } from "../../../redux/actions/commentActions";
+import useReduxSelector from "../../../hooks/useReduxSelector";
 //Redux
-import { useDispatch, useSelector } from "react-redux";
-//Interfaces
-import { CommentFormProps, StateToPropsData } from "./CommentFormInterfaces";
+import { useDispatch } from "react-redux";
 
-const CommentForm = (props: CommentFormProps) => {
-	const mapStateToProps = (state: StateToPropsData) => ({
-		UI: state.UI,
-		user: state.user,
-		post: state.data.post,
-	});
-	const data = useSelector(mapStateToProps);
+const CommentForm = (props: { postId: string }) => {
+	const data = useReduxSelector();
 	const dispatch = useDispatch();
+	const {
+		user,
+		UI,
+		data: { post },
+	} = data;
 
 	const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -25,11 +24,9 @@ const CommentForm = (props: CommentFormProps) => {
 			})
 		);
 
-		data.post && data.post.commentCount++;
+		post && post.commentCount++;
 		event.currentTarget.reset();
 	};
-
-	const { user, UI } = data;
 
 	const commentFormMarkup =
 		user && user.authenticated ? (

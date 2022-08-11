@@ -1,35 +1,27 @@
 import { Link } from "react-router-dom";
 import LikeButton from "../../../utils/LikeButton/LikeButton";
 import DeletePopup from "../../DeletePopup/DeletePopup";
+import useReduxSelector from "../../../hooks/useReduxSelector";
 //MUI
 import ChatIcon from "@material-ui/icons/Chat";
 //Dayjs
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 //Redux
-import { useSelector } from "react-redux";
 import { deletePost } from "../../../redux/actions/postActions";
 //Interfaces
-import { OnePostData, Posts } from "../../../utils/postInterfaces";
+import { OnePostData } from "../../../utils/postInterfaces";
 import SavedButton from "../../../utils/SaveButton/SaveButton";
 
-interface StateToPropsData {
-	data: { post: OnePostData };
-	user: Posts;
-}
-interface Props {
+interface PostProps {
 	post: OnePostData;
 	likePost?: (postId: string) => void;
 	unlikePost?: (postId: string) => void;
 	openDialog?: boolean;
 }
 
-const Post = (props: Props) => {
-	const mapStateToProps = (state: StateToPropsData) => ({
-		user: state.user,
-		post: state.data.post,
-	});
-	const data = useSelector(mapStateToProps);
+const Post = (props: PostProps) => {
+	const data = useReduxSelector();
 	const { body, createdAt, userImage, username, imageUrl } = props.post;
 	const { user } = data;
 	const userPostId = props.post.postId;
