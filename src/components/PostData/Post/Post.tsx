@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import LikeButton from "../../../utils/LikeButton/LikeButton";
+import LikeButton from "../../../utils/LikeButton";
 import DeletePopup from "../../DeletePopup/DeletePopup";
 import useReduxSelector from "../../../hooks/useReduxSelector";
 //MUI
@@ -11,7 +11,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { deletePost } from "../../../redux/actions/postActions";
 //Interfaces
 import { OnePostData } from "../../../utils/postInterfaces";
-import SavedButton from "../../../utils/SaveButton/SaveButton";
+import SavedButton from "../../../utils/SaveButton";
 
 interface PostProps {
 	post: OnePostData;
