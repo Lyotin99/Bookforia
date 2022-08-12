@@ -19,22 +19,20 @@ interface PostProps {
 
 const Post = (props: PostProps) => {
 	const data = useReduxSelector();
-	const { body, createdAt, userImage, username, imageUrl } = props.post;
+	const { body, createdAt, userImage, username, imageUrl, postId } =
+		props.post;
 	const { user } = data;
-	const userPostId = props.post.postId;
 
 	const deleteButton =
 		user.authenticated && username === user.credentials.username ? (
 			<DeletePopup
-				postId={userPostId}
+				postId={postId}
 				deleteElement={deletePost}
 				text="post"
 			/>
 		) : null;
 
-	const saveBtn = user.authenticated ? (
-		<SavedButton postId={userPostId} />
-	) : null;
+	const saveBtn = user.authenticated ? <SavedButton postId={postId} /> : null;
 
 	dayjs.extend(relativeTime);
 
@@ -68,14 +66,11 @@ const Post = (props: PostProps) => {
 				<div className="post__content-body">
 					<div className="post__likes-comments">
 						<div className="post__likes">
-							<LikeButton postId={userPostId} />
+							<LikeButton postId={postId} />
 							<span>{props.post.likeCount} Likes</span>
 						</div>
 						<div className="post__comments">
-							<Link
-								to={`/post/${userPostId}`}
-								title="Expand post"
-							>
+							<Link to={`/post/${postId}`} title="Expand post">
 								<button>
 									<ChatIcon />
 								</button>
