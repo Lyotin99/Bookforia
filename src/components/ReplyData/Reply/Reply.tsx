@@ -51,7 +51,6 @@ const Reply = (props: ReplyProps) => {
 
 	const handleSubmitReply = () => {
 		setExpanded("panel1");
-		setReplyBarStatus("Hide replies");
 		dispatch(getReplies(props.commentId));
 	};
 
@@ -60,7 +59,6 @@ const Reply = (props: ReplyProps) => {
 		(event: React.ChangeEvent<{}>, newExpanded: boolean) => {
 			if (newExpanded) {
 				setExpanded(panel);
-				setReplyBarStatus("Hide replies");
 			} else {
 				setExpanded(false);
 				setReplyBarStatus(`${props.repliesCount} Replies`);
@@ -80,6 +78,7 @@ const Reply = (props: ReplyProps) => {
 						replyId,
 						commentId,
 					} = reply;
+
 					const deleteReplyBtn =
 						credentials.username === username ? (
 							<DeletePopup
@@ -186,9 +185,6 @@ const Reply = (props: ReplyProps) => {
 			>
 				<Accordion
 					elevation={0}
-					style={{
-						backgroundColor: "transparent",
-					}}
 					expanded={expanded === "panel1"}
 					onChange={handleChange("panel1")}
 				>
@@ -201,18 +197,16 @@ const Reply = (props: ReplyProps) => {
 							{data.data.post.comments[props.index].repliesCount >
 							0
 								? replyBarStatus
+								: data.data.post.comments[props.index]
+										.repliesCount === 0 &&
+								  data.user.authenticated
+								? "Reply"
 								: ""}
 						</p>
 					</AccordionSummary>
 
 					<AccordionDetails>
-						<div
-							style={{
-								width: "100%",
-								textAlign: "left",
-								wordWrap: "break-word",
-							}}
-						>
+						<div>
 							{repliesMarkup}
 							{customReplyInput}
 						</div>

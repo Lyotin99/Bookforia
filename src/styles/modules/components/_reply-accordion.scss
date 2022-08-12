@@ -37,4 +37,9 @@
     .MuiAccordionSummary-root.Mui-expanded {
         min-height: 1.92rem;
     }
+
+    .MuiAccordionDetails-root > div {
+        width: 100%;
+    
+    }
 }
