@@ -10,7 +10,7 @@ const getAuth = (
 	dispatch: Dispatch<any>
 ) => {
 	axios
-		.post("/login", userData)
+		.post(url, userData)
 		.then((res) => {
 			const FBIdToken = `Bearer ${res.data.token}`;
 			localStorage.setItem("FBIdToken", FBIdToken);
