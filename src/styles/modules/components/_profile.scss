@@ -101,3 +101,20 @@
         left: 0;
     }
 }
+
+// -- Skeleton
+
+.profile.profile--skeleton {
+    ul li {
+        background-color: rgba(0, 0, 0, 0.5);
+        margin-bottom: 1rem;
+        width: 40%;
+        height: 1.5rem;
+
+        &:first-child {
+            background-color: $c-base;
+            width: 30%;
+            height: 2rem;
+        }
+    }
+}

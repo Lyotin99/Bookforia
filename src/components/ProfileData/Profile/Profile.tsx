@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import EditDetails from "../EditDetails/EditDetails";
-import ProfileSkeleton from "../../../utils/PostSkeleton";
+import ProfileSkeleton from "../../../utils/ProfileSkeleton";
 import useReduxSelector from "../../../hooks/useReduxSelector";
 //Icons
 import StarIcon from "../../../photos/ico-star.svg";
@@ -45,9 +45,9 @@ const Profile = () => {
 				username,
 				website,
 			},
+			loading,
 			authenticated,
 		},
-		UI: { loading },
 	} = data;
 
 	let profileMarkup = !loading ? (
