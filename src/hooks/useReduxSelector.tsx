@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { UserData, UIData, InitialStateData } from "../utils/postInterfaces";
+import { UserData, UIData, InitialStateData } from "../utils/Interfaces";
 
 export interface StateToPropsData {
 	data: InitialStateData;

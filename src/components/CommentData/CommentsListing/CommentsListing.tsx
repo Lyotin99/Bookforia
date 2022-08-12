@@ -11,7 +11,7 @@ import {
 	editComment,
 } from "../../../redux/actions/commentActions";
 //Interfaces
-import { CommentsData } from "../../../utils/postInterfaces";
+import { CommentsData } from "../../../utils/Interfaces";
 
 export interface CommentsListingProps {
 	comments: CommentsData[];

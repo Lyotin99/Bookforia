@@ -10,7 +10,7 @@ import LinkIcon from "@material-ui/icons/Link";
 //Dayjs
 import dayjs from "dayjs";
 //Interfaces
-import { Credentials } from "../../../utils/postInterfaces";
+import { Credentials } from "../../../utils/Interfaces";
 
 interface Props {
 	profile: Credentials;

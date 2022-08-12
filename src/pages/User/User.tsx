@@ -9,7 +9,7 @@ import useReduxSelector from "../../hooks/useReduxSelector";
 import { useDispatch } from "react-redux";
 import { getUserData } from "../../redux/actions/dataActions";
 //Interfaces
-import { Credentials } from "../../utils/postInterfaces";
+import { Credentials } from "../../utils/Interfaces";
 
 interface PropsData {
 	match: {

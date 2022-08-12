@@ -21,7 +21,7 @@ import {
 	editReply,
 } from "../../../redux/actions/replyActions";
 //Interfaces
-import { ReplyData } from "../../../utils/postInterfaces";
+import { ReplyData } from "../../../utils/Interfaces";
 
 interface ReplyProps {
 	commentId: string;

@@ -6,7 +6,7 @@ import useReduxSelector from "../../hooks/useReduxSelector";
 import { useDispatch } from "react-redux";
 import { getSavedPosts } from "../../redux/actions/postActions";
 //Interfaces
-import { OnePostData } from "../../utils/postInterfaces";
+import { OnePostData } from "../../utils/Interfaces";
 
 const SavedPost = () => {
 	const data = useReduxSelector();

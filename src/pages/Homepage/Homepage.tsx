@@ -7,7 +7,7 @@ import useReduxSelector from "../../hooks/useReduxSelector";
 import { useDispatch } from "react-redux";
 import { getPosts } from "../../redux/actions/postActions";
 //Interfaces
-import { OnePostData } from "../../utils/postInterfaces";
+import { OnePostData } from "../../utils/Interfaces";
 import CreatePost from "../../components/PostData/CreatePost/CreatePost";
 
 const Homepage = () => {

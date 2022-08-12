@@ -7,7 +7,7 @@ import MenuBookIcon from "@material-ui/icons/MenuBook";
 import { useDispatch } from "react-redux";
 import { signupUser } from "../../redux/actions/userActions";
 //Interfaces
-import { History } from "../../utils/postInterfaces";
+import { History } from "../../utils/Interfaces";
 
 const Signup = (props: { history: History }) => {
 	const data = useReduxSelector();

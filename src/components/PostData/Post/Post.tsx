@@ -10,7 +10,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 //Redux
 import { deletePost } from "../../../redux/actions/postActions";
 //Interfaces
-import { OnePostData } from "../../../utils/postInterfaces";
+import { OnePostData } from "../../../utils/Interfaces";
 import SavedButton from "../../Common/SaveButton";
 
 interface PostProps {

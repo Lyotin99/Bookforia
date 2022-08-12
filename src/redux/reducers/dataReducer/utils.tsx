@@ -1,4 +1,4 @@
-import { InitialStateData } from "../../../utils/postInterfaces";
+import { InitialStateData } from "../../../utils/Interfaces";
 
 export const initialState: InitialStateData = {
 	posts: [],

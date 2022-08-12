@@ -6,7 +6,7 @@ import BookmarkIcon from "@material-ui/icons/Bookmark";
 import { connect } from "react-redux";
 import { savePost, unSavePost } from "../../redux/actions/postActions";
 //Interfaces
-import { Posts } from "../../utils/postInterfaces";
+import { Posts } from "../../utils/Interfaces";
 interface Props {
 	postId: string;
 	savePost?: (postId: string) => void;

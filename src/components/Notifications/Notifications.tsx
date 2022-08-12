@@ -15,7 +15,7 @@ import ChatIcon from "@material-ui/icons/Chat";
 import { useDispatch } from "react-redux";
 import { markNotificationsRead } from "../../redux/actions/userActions";
 //Interfaces
-import { NotificationsData } from "../../utils/postInterfaces";
+import { NotificationsData } from "../../utils/Interfaces";
 
 const Notifications = () => {
 	const [anchorEl, setAnchorEl] = useState<any>(null);
