@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import DeletePopup from "../../DeletePopup/DeletePopup";
-import EditPopup from "../../EditPopup/EditPopup";
+import DeletePopup from "../../Common/DeletePopup/DeletePopup";
+import EditPopup from "../../Common/EditPopup/EditPopup";
 import CommentReply from "../../ReplyData/Reply/Reply";
 import useReduxSelector from "../../../hooks/useReduxSelector";
 //Dayjs

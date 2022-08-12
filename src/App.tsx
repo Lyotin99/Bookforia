@@ -14,7 +14,7 @@ import signup from "./pages/Signup/Signup";
 import booksCollection from "./pages/BooksLibrary/BooksLibrary";
 import Navbar from "./components/Header/Header";
 import user from "./pages/User/User";
-import AuthRoute from "./utils/AuthRoute";
+import AuthRoute from "./components/Common/AuthRoute";
 import { SET_AUTHENTICATED } from "./redux/types";
 import { logoutUser, getUserData } from "./redux/actions/userActions";
 import axios from "axios";

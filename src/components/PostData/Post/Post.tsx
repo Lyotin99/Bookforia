@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import LikeButton from "../../../utils/LikeButton";
-import DeletePopup from "../../DeletePopup/DeletePopup";
+import LikeButton from "../../Common/LikeButton";
+import DeletePopup from "../../Common/DeletePopup/DeletePopup";
 import useReduxSelector from "../../../hooks/useReduxSelector";
 //MUI
 import ChatIcon from "@material-ui/icons/Chat";
@@ -11,13 +11,10 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { deletePost } from "../../../redux/actions/postActions";
 //Interfaces
 import { OnePostData } from "../../../utils/postInterfaces";
-import SavedButton from "../../../utils/SaveButton";
+import SavedButton from "../../Common/SaveButton";
 
 interface PostProps {
 	post: OnePostData;
-	likePost?: (postId: string) => void;
-	unlikePost?: (postId: string) => void;
-	openDialog?: boolean;
 }
 
 const Post = (props: PostProps) => {

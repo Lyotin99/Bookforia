@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import useReduxSelector from "../../hooks/useReduxSelector";
+import useReduxSelector from "../../../hooks/useReduxSelector";
 //MUI
 import { Dialog } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 //Redux
 import { useDispatch } from "react-redux";
-import { cleanErrors } from "../../redux/actions/dataActions";
+import { cleanErrors } from "../../../redux/actions/dataActions";
 
 interface EditPostProps {
 	elementId: string;

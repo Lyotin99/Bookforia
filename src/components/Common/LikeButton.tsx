@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { Favorite, FavoriteBorder } from "@material-ui/icons";
 //Redux
 import { connect } from "react-redux";
-import { likePost, unlikePost } from "../redux/actions/postActions";
+import { likePost, unlikePost } from "../../redux/actions/postActions";
 //Interfaces
-import { Posts, LikesData } from "./postInterfaces";
+import { Posts, LikesData } from "../../utils/postInterfaces";
 
 interface Props {
 	likePost?: (postId: string) => void;

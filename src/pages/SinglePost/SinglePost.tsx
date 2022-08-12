@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import EditPopup from "../../components/EditPopup/EditPopup";
+import EditPopup from "../../components/Common/EditPopup/EditPopup";
 import Comments from "../../components/CommentData/CommentsListing/CommentsListing";
-import LikeButton from "../../utils/LikeButton";
+import LikeButton from "../../components/Common/LikeButton";
 import CommentForm from "../../components/CommentData/CommentForm/CommentForm";
 import BookSpinner from "../../photos/bookSpinner.svg";
 import useReduxSelector from "../../hooks/useReduxSelector";

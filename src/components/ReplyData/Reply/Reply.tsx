@@ -9,8 +9,8 @@ import {
 	AccordionDetails,
 	AccordionSummary,
 } from "@material-ui/core";
-import DeletePopup from "../../DeletePopup/DeletePopup";
-import EditPopup from "../../EditPopup/EditPopup";
+import DeletePopup from "../../Common/DeletePopup/DeletePopup";
+import EditPopup from "../../Common/EditPopup/EditPopup";
 //Dayjs
 import dayjs from "dayjs";
 //Redux
