@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axiosGet } from "../../services/axiosServices";
 import { useState } from "react";
 import NoBookCoverImg from "../../photos/NoBookCover.jpg";
 
@@ -7,35 +7,23 @@ interface FormBooksProps {
 }
 
 const FormBooks = (props: FormBooksProps) => {
-	const [searchBar, setSearchBar] = useState("");
 	const [error, setError] = useState(false);
 	const [books, setBooks] = useState([]);
-
-	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setSearchBar(event.target.value);
-	};
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
+		const formData = new FormData(e.currentTarget);
+		const searchBar = String(formData.get("searchBar"));
+
 		if (searchBar.trim() !== "") {
 			props.handleFormSubmitted(true);
+			const url = `https://www.googleapis.com/books/v1/volumes?q=+:${searchBar}&printType=books&maxResults=20`;
 
-			setError(false);
-
-			axios
-				.get(
-					`https://www.googleapis.com/books/v1/volumes?q=+:${searchBar}&printType=books&maxResults=20`
-				)
-				.then((res) => {
-					setBooks(res.data.items);
-				})
-				.catch((err) => {
-					console.log(err);
-				});
-		} else {
-			setError(true);
-		}
+			axiosGet(url).then((data) => {
+				setBooks(data.items);
+			});
+		} else setError(true);
 	};
 
 	const booksMarkup = books.map((book: any, index) => {
@@ -124,7 +112,6 @@ const FormBooks = (props: FormBooksProps) => {
 					<div className="form__body">
 						<input
 							type="text"
-							onChange={handleChange}
 							name="searchBar"
 							placeholder="Search for book titles"
 						/>
