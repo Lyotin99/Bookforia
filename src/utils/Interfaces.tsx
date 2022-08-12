@@ -3,7 +3,9 @@ export interface UserData {
 	authenticated: boolean;
 	loading: boolean;
 	credentials: Credentials;
+	likes: LikesData[];
 	notifications: NotificationsData & NotificationsData[];
+	savedPosts: LikesData[];
 }
 export interface UserDetails {
 	bio: string;
