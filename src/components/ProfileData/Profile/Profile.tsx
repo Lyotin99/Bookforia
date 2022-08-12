@@ -7,7 +7,6 @@ import StarIcon from "../../../photos/ico-star.svg";
 import QuoteIcon from "../../../photos/ico-quote.svg";
 import DescIcon from "../../../photos/ico-desc.svg";
 import PersonIcon from "../../../photos/ico-person.svg";
-import "./profile.css";
 //Mui
 import LocationOn from "@material-ui/icons/LocationOn";
 import LinkIcon from "@material-ui/icons/Link";
