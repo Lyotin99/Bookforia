@@ -20,7 +20,7 @@ import {
 	axiosGet,
 	axiosPost,
 	axiosPut,
-} from "../../services/AxiosReduxServices";
+} from "../../services/axiosReduxServices";
 import { Dispatch } from "redux";
 import { cleanErrors } from "./dataActions";
 

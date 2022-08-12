@@ -89,6 +89,13 @@ export interface History {
 }
 //UI
 
+export interface AuthData {
+	email: string;
+	password: string;
+	confirmPassword?: string;
+	username?: string;
+}
+
 export interface LoginUIData {
 	loading: boolean;
 	errors: LoginErrorsData;
