@@ -1,15 +1,22 @@
 import { Route, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+import useReduxSelector from "../../hooks/useReduxSelector";
 
-const AuthRoute = ({ component: Component, authenticated, ...rest }: any) => (
-  <Route
-    {...rest}
-    render={(props) =>
-      authenticated === true ? <Redirect to="/" /> : <Component {...props} />
-    }
-  />
-);
-const mapStateToProps = (state: any) => ({
-  authenticated: state.user.authenticated,
-});
-export default connect(mapStateToProps)(AuthRoute);
+const AuthRoute = ({ component: Component, ...rest }: any) => {
+	const data = useReduxSelector();
+	const { authenticated } = data.user;
+
+	return (
+		<Route
+			{...rest}
+			render={(props) =>
+				authenticated === true ? (
+					<Redirect to="/" />
+				) : (
+					<Component {...props} />
+				)
+			}
+		/>
+	);
+};
+
+export default AuthRoute;
