@@ -23,9 +23,9 @@ const Homepage = () => {
 
 	let recentPostsMarkup =
 		!loading && posts ? (
-			posts.map((post: OnePostData) => {
-				return <Post key={post.postId} post={post} />;
-			})
+			posts.map((post: OnePostData) => (
+				<Post key={post.postId} post={post} />
+			))
 		) : (
 			<PostSkeleton />
 		);

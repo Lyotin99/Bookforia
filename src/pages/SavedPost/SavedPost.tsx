@@ -19,9 +19,7 @@ const SavedPost = () => {
 	const { posts, loading } = data.data;
 
 	let recentPostsMarkup = !loading ? (
-		posts.map((post: OnePostData) => {
-			return <Post key={post.postId} post={post} />;
-		})
+		posts.map((post: OnePostData) => <Post key={post.postId} post={post} />)
 	) : (
 		<PostSkeleton />
 	);
