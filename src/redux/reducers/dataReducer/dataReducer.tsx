@@ -1,23 +1,4 @@
-import {
-	SET_POSTS,
-	LIKE_POST,
-	UNLIKE_POST,
-	LOADING_DATA,
-	SET_POST,
-	POST_POST,
-	SUBMIT_COMMENT,
-	DELETE_POST,
-	EDIT_POST,
-	DELETE_COMMENT,
-	EDIT_COMMENT,
-	SAVE_POST,
-	UNSAVE_POST,
-	SET_SAVED_POSTS,
-	SET_REPLIES,
-	POST_REPLY,
-	DELETE_REPLY,
-	EDIT_REPLY,
-} from "../../types";
+import { Actions } from "../../types";
 
 import {
 	deleteComment,
@@ -35,55 +16,55 @@ import {
 
 const postData = (state = initialState, action: any) => {
 	switch (action.type) {
-		case LOADING_DATA:
+		case Actions.LOADING_DATA:
 			return {
 				...state,
 				loading: true,
 			};
-		case SET_SAVED_POSTS:
+		case Actions.SET_SAVED_POSTS:
 			return {
 				...state,
 				posts: action.payload,
 				loading: false,
 			};
-		case SET_POSTS:
+		case Actions.SET_POSTS:
 			return {
 				...state,
 				posts: action.payload,
 				loading: false,
 			};
-		case SET_POST:
+		case Actions.SET_POST:
 			return {
 				...state,
 				post: action.payload,
 			};
-		case SAVE_POST:
+		case Actions.SAVE_POST:
 			return {
 				...state,
 			};
-		case SET_REPLIES:
+		case Actions.SET_REPLIES:
 			return setReplies(state, action);
-		case DELETE_REPLY:
+		case Actions.DELETE_REPLY:
 			return deleteReply(state, action);
-		case EDIT_REPLY:
+		case Actions.EDIT_REPLY:
 			return editReply(state, action);
-		case UNSAVE_POST:
+		case Actions.UNSAVE_POST:
 			return unsavePost(state, action);
-		case LIKE_POST:
-		case UNLIKE_POST:
+		case Actions.LIKE_POST:
+		case Actions.UNLIKE_POST:
 			return likeUnlikePost(state, action);
-		case EDIT_POST:
+		case Actions.EDIT_POST:
 			return editPost(state, action);
-		case EDIT_COMMENT:
+		case Actions.EDIT_COMMENT:
 			return editComment(state, action);
-		case POST_POST:
+		case Actions.POST_POST:
 			return {
 				...state,
 				posts: [action.payload, ...state.posts],
 			};
-		case POST_REPLY:
+		case Actions.POST_REPLY:
 			return postReply(state, action);
-		case SUBMIT_COMMENT:
+		case Actions.SUBMIT_COMMENT:
 			return {
 				...state,
 				post: {
@@ -92,10 +73,10 @@ const postData = (state = initialState, action: any) => {
 				},
 			};
 
-		case DELETE_POST:
+		case Actions.DELETE_POST:
 			return deletePost(state, action);
 
-		case DELETE_COMMENT:
+		case Actions.DELETE_COMMENT:
 			return deleteComment(state, action);
 		default:
 			return state;

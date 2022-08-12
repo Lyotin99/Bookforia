@@ -1,11 +1,4 @@
-import {
-	LOADING_DATA,
-	SET_ERRORS,
-	SET_REPLIES,
-	POST_REPLY,
-	DELETE_REPLY,
-	EDIT_REPLY,
-} from "../types";
+import { Actions } from "../types";
 
 import {
 	axiosDelete,
@@ -21,22 +14,28 @@ export const PostReply =
 		axiosPost(
 			`/comments/${commentId}/replies`,
 			replyData,
-			POST_REPLY,
-			SET_ERRORS,
+			Actions.POST_REPLY,
+			Actions.SET_ERRORS,
 			dispatch
 		);
 	};
 
 export const getReplies = (commentId: string) => (dispatch: Dispatch) => {
-	dispatch({ type: LOADING_DATA });
-	axiosGet(`/comments/${commentId}`, SET_REPLIES, SET_REPLIES, [], dispatch);
+	dispatch({ type: Actions.LOADING_DATA });
+	axiosGet(
+		`/comments/${commentId}`,
+		Actions.SET_REPLIES,
+		Actions.SET_REPLIES,
+		[],
+		dispatch
+	);
 };
 
 export const deleteReply =
 	(commentId: string, replyId: string) => (dispatch: Dispatch) => {
 		axiosDelete(
 			`/comments/${commentId}/reply/${replyId}`,
-			DELETE_REPLY,
+			Actions.DELETE_REPLY,
 			{ commentId, replyId },
 			dispatch
 		);
@@ -44,5 +43,11 @@ export const deleteReply =
 
 export const editReply =
 	(replyId: string, body: { body: string }) => (dispatch: Dispatch) => {
-		axiosPut(`/reply/${replyId}`, body, EDIT_REPLY, SET_ERRORS, dispatch);
+		axiosPut(
+			`/reply/${replyId}`,
+			body,
+			Actions.EDIT_REPLY,
+			Actions.SET_ERRORS,
+			dispatch
+		);
 	};

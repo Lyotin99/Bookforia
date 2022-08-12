@@ -1,14 +1,14 @@
-import { SET_POSTS, LOADING_DATA, CLEAR_ERRORS } from "../types";
+import { Actions } from "../types";
 
 import { Dispatch } from "redux";
 import axios from "axios";
 
 export const cleanErrors = () => (dispatch: Dispatch) => {
-	dispatch({ type: CLEAR_ERRORS });
+	dispatch({ type: Actions.CLEAR_ERRORS });
 };
 
 export const getUserData = (username: string) => (dispatch: Dispatch) => {
-	dispatch({ type: LOADING_DATA });
+	dispatch({ type: Actions.LOADING_DATA });
 
 	axios
 		.get(`/user/${username}`, {
@@ -17,11 +17,11 @@ export const getUserData = (username: string) => (dispatch: Dispatch) => {
 			},
 		})
 		.then((res) => {
-			dispatch({ type: SET_POSTS, payload: res.data.posts });
+			dispatch({ type: Actions.SET_POSTS, payload: res.data.posts });
 		})
 		.catch(() => {
 			dispatch({
-				type: SET_POSTS,
+				type: Actions.SET_POSTS,
 				payload: [],
 			});
 		});

@@ -1,9 +1,4 @@
-import {
-	SET_ERRORS,
-	CLEAR_ERRORS,
-	LOADING_UI,
-	STOP_LOADING_UI,
-} from "../../types";
+import { Actions } from "../../types";
 
 const initialState = {
 	loading: false,
@@ -16,24 +11,24 @@ interface ActionType {
 
 const userInterface = (state = initialState, action: ActionType) => {
 	switch (action.type) {
-		case SET_ERRORS:
+		case Actions.SET_ERRORS:
 			return {
 				...state,
 				loading: false,
 				errors: action.payload,
 			};
-		case CLEAR_ERRORS:
+		case Actions.CLEAR_ERRORS:
 			return {
 				...state,
 				loading: false,
 				errors: null,
 			};
-		case LOADING_UI:
+		case Actions.LOADING_UI:
 			return {
 				...state,
 				loading: true,
 			};
-		case STOP_LOADING_UI:
+		case Actions.STOP_LOADING_UI:
 			return {
 				...state,
 				loading: false,

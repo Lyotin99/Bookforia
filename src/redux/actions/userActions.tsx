@@ -1,10 +1,4 @@
-import {
-	SET_USER,
-	LOADING_UI,
-	SET_UNAUTHENTICATED,
-	LOADING_USER,
-	MARK_NOTIFICATIONS_READ,
-} from "../types";
+import { Actions } from "../types";
 import { axiosGet, axiosPostNoFetch } from "../../services/axiosReduxServices";
 import authService from "../../services/authService";
 import axios from "axios";
@@ -12,31 +6,31 @@ import { Dispatch } from "redux";
 import { AuthData, History, UserDetails } from "../../utils/Interfaces";
 
 export const getUserData = () => (dispatch: Dispatch) => {
-	dispatch({ type: LOADING_USER });
-	axiosGet("/user", SET_USER, SET_USER, [], dispatch);
+	dispatch({ type: Actions.LOADING_USER });
+	axiosGet("/user", Actions.SET_USER, Actions.SET_USER, [], dispatch);
 };
 
 export const loginUser =
 	(userData: AuthData, history: History) => (dispatch: Dispatch<any>) => {
-		dispatch({ type: LOADING_UI });
+		dispatch({ type: Actions.LOADING_UI });
 		authService("/login", userData, history, dispatch);
 	};
 
 export const signupUser =
 	(newUserData: AuthData, history: History) => (dispatch: Dispatch<any>) => {
-		dispatch({ type: LOADING_UI });
+		dispatch({ type: Actions.LOADING_UI });
 		authService("/signup", newUserData, history, dispatch);
 	};
 
 export const logoutUser = () => (dispatch: Dispatch) => {
 	localStorage.removeItem("FBIdToken");
 	delete axios.defaults.headers.common["Authorization"];
-	dispatch({ type: SET_UNAUTHENTICATED });
+	dispatch({ type: Actions.SET_UNAUTHENTICATED });
 };
 
 export const uploadImage =
 	(formData: FormData) => (dispatch: Dispatch<any>) => {
-		dispatch({ type: LOADING_USER });
+		dispatch({ type: Actions.LOADING_USER });
 		axiosPostNoFetch("/user/image", formData)
 			.then(() => {
 				dispatch(getUserData());
@@ -48,7 +42,7 @@ export const uploadImage =
 
 export const editUserDetails =
 	(userDetails: UserDetails) => (dispatch: Dispatch<any>) => {
-		dispatch({ type: LOADING_USER });
+		dispatch({ type: Actions.LOADING_USER });
 		axiosPostNoFetch("/user", userDetails)
 			.then(() => {
 				dispatch(getUserData());
@@ -63,7 +57,7 @@ export const markNotificationsRead =
 		axiosPostNoFetch("/notifications", notificationIds)
 			.then(() => {
 				dispatch({
-					type: MARK_NOTIFICATIONS_READ,
+					type: Actions.MARK_NOTIFICATIONS_READ,
 				});
 			})
 			.catch((err) => {

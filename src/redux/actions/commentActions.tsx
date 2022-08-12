@@ -1,9 +1,4 @@
-import {
-	SET_ERRORS,
-	SUBMIT_COMMENT,
-	DELETE_COMMENT,
-	EDIT_COMMENT,
-} from "../types";
+import { Actions } from "../types";
 
 import {
 	axiosDelete,
@@ -19,8 +14,8 @@ export const submitComment =
 		axiosPost(
 			`/post/${postId}/comment`,
 			commentData,
-			SUBMIT_COMMENT,
-			SET_ERRORS,
+			Actions.SUBMIT_COMMENT,
+			Actions.SET_ERRORS,
 			dispatch
 		);
 		dispatch(cleanErrors());
@@ -31,8 +26,8 @@ export const editComment =
 		axiosPut(
 			`/comment/${commentId}`,
 			body,
-			EDIT_COMMENT,
-			SET_ERRORS,
+			Actions.EDIT_COMMENT,
+			Actions.SET_ERRORS,
 			dispatch
 		);
 	};
@@ -41,7 +36,7 @@ export const deleteComment =
 	(postId: string, commentId: string) => (dispatch: Dispatch) => {
 		axiosDelete(
 			`/post/${postId}/comment/${commentId}`,
-			DELETE_COMMENT,
+			Actions.DELETE_COMMENT,
 			commentId,
 			dispatch
 		);

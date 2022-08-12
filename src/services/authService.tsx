@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getUserData } from "../redux/actions/userActions";
-import { CLEAR_ERRORS, SET_ERRORS } from "../redux/types";
+import { Actions } from "../redux/types";
 import { AuthData, History } from "../utils/Interfaces";
 import { Dispatch } from "redux";
 const getAuth = (
@@ -16,12 +16,12 @@ const getAuth = (
 			localStorage.setItem("FBIdToken", FBIdToken);
 			dispatch(getUserData());
 
-			dispatch({ type: CLEAR_ERRORS });
+			dispatch({ type: Actions.CLEAR_ERRORS });
 			history.push("/");
 		})
 		.catch((error) => {
 			dispatch({
-				type: SET_ERRORS,
+				type: Actions.SET_ERRORS,
 				payload: error.response.data,
 			});
 		});

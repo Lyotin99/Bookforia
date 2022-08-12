@@ -15,7 +15,7 @@ import booksCollection from "./pages/BooksLibrary/BooksLibrary";
 import Navbar from "./components/Header/Header";
 import user from "./pages/User/User";
 import AuthRoute from "./components/Common/AuthRoute";
-import { SET_AUTHENTICATED } from "./redux/types";
+import { Actions } from "./redux/types";
 import { logoutUser, getUserData } from "./redux/actions/userActions";
 import axios from "axios";
 import savedPosts from "./pages/SavedPost/SavedPost";
@@ -35,7 +35,7 @@ if (token) {
 	if (expirationTime <= Date.now()) {
 		store.dispatch(logoutUser());
 	} else {
-		store.dispatch({ type: SET_AUTHENTICATED });
+		store.dispatch({ type: Actions.SET_AUTHENTICATED });
 		store.dispatch(getUserData());
 	}
 }

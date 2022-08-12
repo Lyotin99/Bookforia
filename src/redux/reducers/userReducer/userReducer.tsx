@@ -1,14 +1,4 @@
-import {
-	LOADING_USER,
-	SET_AUTHENTICATED,
-	SET_UNAUTHENTICATED,
-	SET_USER,
-	LIKE_POST,
-	UNLIKE_POST,
-	MARK_NOTIFICATIONS_READ,
-	SAVE_POST,
-	UNSAVE_POST,
-} from "../../types";
+import { Actions } from "../../types";
 
 import { initialStateProps } from "./userReducerInterfaces";
 
@@ -23,25 +13,25 @@ const initialState: initialStateProps = {
 
 const userData = (state = initialState, action: any) => {
 	switch (action.type) {
-		case SET_AUTHENTICATED:
+		case Actions.SET_AUTHENTICATED:
 			return {
 				...state,
 				authenticated: true,
 			};
-		case SET_UNAUTHENTICATED:
+		case Actions.SET_UNAUTHENTICATED:
 			return initialState;
-		case SET_USER:
+		case Actions.SET_USER:
 			return {
 				authenticated: true,
 				loading: false,
 				...action.payload,
 			};
-		case LOADING_USER:
+		case Actions.LOADING_USER:
 			return {
 				...state,
 				loading: true,
 			};
-		case SAVE_POST:
+		case Actions.SAVE_POST:
 			return {
 				...state,
 				savedPosts: [
@@ -52,7 +42,7 @@ const userData = (state = initialState, action: any) => {
 					},
 				],
 			};
-		case UNSAVE_POST:
+		case Actions.UNSAVE_POST:
 			return {
 				...state,
 
@@ -61,7 +51,7 @@ const userData = (state = initialState, action: any) => {
 						savedPost.postId !== action.payload.savedPostId
 				),
 			};
-		case LIKE_POST:
+		case Actions.LIKE_POST:
 			return {
 				...state,
 				likes: [
@@ -72,14 +62,14 @@ const userData = (state = initialState, action: any) => {
 					},
 				],
 			};
-		case UNLIKE_POST:
+		case Actions.UNLIKE_POST:
 			return {
 				...state,
 				likes: state.likes.filter(
 					(like) => like.postId !== action.payload.postId
 				),
 			};
-		case MARK_NOTIFICATIONS_READ:
+		case Actions.MARK_NOTIFICATIONS_READ:
 			state.notifications?.forEach((not) => {
 				not.read = true;
 			});
