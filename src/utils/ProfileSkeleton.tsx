@@ -1,8 +1,4 @@
 import noImg from "../photos/no-img.png";
-//Icons
-import LocationOn from "@material-ui/icons/LocationOn";
-import LinkIcon from "@material-ui/icons/Link";
-import CalendarToday from "@material-ui/icons/CalendarToday";
 
 const ProfileSkeleton = () => {
 	return (
