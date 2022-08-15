@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import useReduxSelector from "../../hooks/useReduxSelector";
 //Dayjs
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 //Mui
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import Badge from "@material-ui/core/Badge";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -18,27 +16,28 @@ import { markNotificationsRead } from "../../redux/actions/userActions";
 import { NotificationsData } from "../../utils/Interfaces";
 
 const Notifications = () => {
-	const [anchorEl, setAnchorEl] = useState<any>(null);
+	const [isOpened, setIsOpened] = useState<any>(false);
+	const [isClickedOnce, setIsClickedOnce] = useState<boolean>(false);
 	const data = useReduxSelector();
 	const dispatch = useDispatch();
 	const { notifications } = data.user;
 
-	const handleOpen = (
-		event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-	) => {
-		setAnchorEl(event.target);
+	const handleOpen = () => {
+		setIsOpened(!isOpened);
+
+		if (!isClickedOnce) {
+			let unreadNotificationsIds = notifications
+				.filter((not: NotificationsData) => !not.read)
+				.map((not: NotificationsData) => not.notificationId);
+
+			dispatch(markNotificationsRead(unreadNotificationsIds));
+
+			setIsClickedOnce(true);
+		}
 	};
 
 	const handleClose = () => {
-		setAnchorEl(null);
-	};
-
-	const onMenuOpened = () => {
-		let unreadNotificationsIds = notifications
-			.filter((not) => !not.read)
-			.map((not) => not.notificationId);
-
-		dispatch(markNotificationsRead(unreadNotificationsIds));
+		setIsOpened(false);
 	};
 
 	dayjs.extend(relativeTime);
@@ -77,7 +76,7 @@ const Notifications = () => {
 						<ChatIcon color={iconColor} />
 					);
 				return (
-					<MenuItem
+					<li
 						key={not.createdAt._seconds}
 						onClick={handleClose}
 						className="notification"
@@ -95,34 +94,33 @@ const Notifications = () => {
 						>
 							<p>{`${not.sender} ${verb} your post ${time}`}</p>
 						</Link>
-					</MenuItem>
+					</li>
 				);
 			})
 		) : (
-			<MenuItem onClick={handleClose}>
-				You have no notifications yet
-			</MenuItem>
+			<li onClick={handleClose}>You have no notifications yet</li>
 		);
 
 	return (
 		<>
-			<button
-				aria-owns={anchorEl ? "simple-menu" : undefined}
-				aria-haspopup="true"
-				onClick={handleOpen}
-				className="btn-notifications"
-			>
+			<button onClick={handleOpen} className="btn-notifications">
 				{notificationsIcon}
 			</button>
-			<Menu
-				open={Boolean(anchorEl)}
-				anchorEl={anchorEl}
-				onClose={handleClose}
-				onEntered={onMenuOpened}
-				className="notifications"
-			>
-				{notificationsMarkup}
-			</Menu>
+
+			<div className={`notifications ${isOpened ? "is-opened" : ""}`}>
+				<button className="btn-close" onClick={handleClose}>
+					X
+				</button>
+
+				<div
+					className="notifications__whitespace"
+					onClick={handleClose}
+				></div>
+
+				<div className="notifications__content">
+					<ul>{notificationsMarkup}</ul>
+				</div>
+			</div>
 		</>
 	);
 };

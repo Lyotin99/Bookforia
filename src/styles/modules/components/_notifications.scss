@@ -1,12 +1,29 @@
 //Notifications
 
 .notifications {
-    position: relative;
-    margin-top: 4rem;
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    display: grid;
+    grid-template-columns: calc(100% - 45rem) 45rem;
+    pointer-events: none;
+    
+    .notifications__content {
+        background-color: $c-base;
+        padding: 6rem 2rem;
+        transform: translateX(100%);
+        transition: transform .4s;
+        overflow: auto;
+    }
+
+    .notifications__whitespace {
+        transition: background-color .4s;
+    }
 
     ul {
-        z-index: 100;
-        background-color: $c-white;
+
         color: $c-black;
         border-radius: 1.2rem;
         padding: 1rem;
@@ -16,13 +33,23 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        padding: .5rem;
+        padding: .5rem .5rem 1rem 3rem;
     }
 }
 
 .notifications.is-opened {
-    ul {
-        opacity: 1;
-        pointer-events: auto;
+    pointer-events: auto;
+
+    .notifications__content {
+        transform: translateX(0);
+    }
+
+    .notifications__whitespace {
+        background-color: rgba(0,0,0, .3);
+        transition: background-color .4s .4s;
+    }
+
+    .btn-close {
+        display: block;
     }
 }

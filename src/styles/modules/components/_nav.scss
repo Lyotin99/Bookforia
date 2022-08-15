@@ -1,6 +1,9 @@
 //Nav
 
 .nav {
+    position: relative;
+    z-index: 101;
+
     > ul {
         display: flex;
         flex-wrap: wrap;

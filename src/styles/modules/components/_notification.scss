@@ -1,12 +1,21 @@
 //Notification
 
 .notification {
+    position: relative;
+    transition: opacity .4s;
+
+    &:hover {
+        opacity: .7;
+    }
+
     a {
         text-decoration: none;
     }
 
     .notification__icon {
-        margin-right: 1rem;
+        position: absolute;
+        top: .5rem;
+        left: 0;
         line-height: 1;
     }
 
