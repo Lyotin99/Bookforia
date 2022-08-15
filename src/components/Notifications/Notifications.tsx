@@ -16,7 +16,7 @@ import { markNotificationsRead } from "../../redux/actions/userActions";
 import { NotificationsData } from "../../utils/Interfaces";
 
 const Notifications = () => {
-	const [isOpened, setIsOpened] = useState<any>(false);
+	const [isOpened, setIsOpened] = useState<boolean>(false);
 	const [isClickedOnce, setIsClickedOnce] = useState<boolean>(false);
 	const data = useReduxSelector();
 	const dispatch = useDispatch();
@@ -24,6 +24,10 @@ const Notifications = () => {
 
 	const handleOpen = () => {
 		setIsOpened(!isOpened);
+	};
+
+	const handleClose = () => {
+		setIsOpened(false);
 
 		if (!isClickedOnce) {
 			let unreadNotificationsIds = notifications
@@ -34,10 +38,6 @@ const Notifications = () => {
 
 			setIsClickedOnce(true);
 		}
-	};
-
-	const handleClose = () => {
-		setIsOpened(false);
 	};
 
 	dayjs.extend(relativeTime);
@@ -68,18 +68,16 @@ const Notifications = () => {
 				const time = dayjs(
 					new Date(not.createdAt._seconds * 1000)
 				).fromNow();
-				const iconColor = not.read ? "primary" : "secondary";
 				const icon =
-					not.type === "like" ? (
-						<FavoriteIcon color={iconColor} />
-					) : (
-						<ChatIcon color={iconColor} />
-					);
+					not.type === "like" ? <FavoriteIcon /> : <ChatIcon />;
+				const elColor = !not.read ? "rgba(0,68,255,.5)" : "#ff4400";
+
 				return (
 					<li
 						key={not.createdAt._seconds}
 						onClick={handleClose}
 						className="notification"
+						style={{ background: elColor }}
 					>
 						<Link
 							className="notification__icon"
