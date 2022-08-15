@@ -9,7 +9,7 @@ import useReduxSelector from "../../hooks/useReduxSelector";
 import { useDispatch } from "react-redux";
 import { getUserData } from "../../redux/actions/dataActions";
 //Interfaces
-import { Credentials } from "../../utils/Interfaces";
+import { Credentials, OnePostData } from "../../utils/Interfaces";
 
 interface PropsData {
 	match: {
@@ -45,9 +45,9 @@ const User = (props: PropsData) => {
 	) : posts === null ? (
 		<p>No posts from this user</p>
 	) : !postIdParam ? (
-		posts.map((post) => <Post key={post.postId} post={post} />)
+		posts.map((post: OnePostData) => <Post key={post.postId} post={post} />)
 	) : (
-		posts.map((post) => {
+		posts.map((post: OnePostData) => {
 			if (post.postId !== postIdParam) {
 				return <Post key={post.postId} post={post} />;
 			} else return <Post key={post.postId} post={post} />;
