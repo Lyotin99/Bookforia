@@ -1,50 +1,26 @@
 import "./styles/load.scss";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import jwtDecode from "jwt-decode";
-
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import AuthRoute from "./components/Common/AuthRoute";
+import Footer from "./components/Footer/Footer";
 //Redux
 import { Provider } from "react-redux";
 import store from "./redux/store";
-
 // Pages
-import Footer from "./components/Footer/Footer";
 import home from "./pages/Homepage/Homepage";
 import login from "./pages/Login/Login";
 import signup from "./pages/Signup/Signup";
 import booksCollection from "./pages/BooksLibrary/BooksLibrary";
 import Navbar from "./components/Header/Header";
 import user from "./pages/User/User";
-import AuthRoute from "./components/Common/AuthRoute";
-import { Actions } from "./redux/types";
-import { logoutUser, getUserData } from "./redux/actions/userActions";
-import axios from "axios";
 import savedPosts from "./pages/SavedPost/SavedPost";
 import SinglePostPage from "./pages/SinglePost/SinglePost";
-axios.defaults.baseURL =
-	"https://europe-west1-social-media-backend-41ded.cloudfunctions.net/api";
-interface JwtExp {
-	exp?: number;
-}
 
-const token: string = localStorage.FBIdToken;
-
-if (token) {
-	const decodedToken: JwtExp = jwtDecode(token);
-	let expirationTime = decodedToken.exp ? decodedToken.exp * 1000 : 0;
-
-	if (expirationTime <= Date.now()) {
-		store.dispatch(logoutUser());
-	} else {
-		store.dispatch({ type: Actions.SET_AUTHENTICATED });
-		store.dispatch(getUserData());
-	}
-}
 function App() {
 	return (
 		<Provider store={store}>
 			<div className="wrapper">
 				<div className="wrapper__inner">
-					<Router>
+					<BrowserRouter>
 						<Navbar />
 						<main className="main">
 							<Switch>
@@ -78,7 +54,7 @@ function App() {
 						</main>
 
 						<Footer />
-					</Router>
+					</BrowserRouter>
 				</div>
 			</div>
 		</Provider>
