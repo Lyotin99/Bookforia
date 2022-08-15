@@ -132,6 +132,14 @@ export interface UIData {
 			body: string;
 		};
 }
+
+export interface UIErrors {
+	errors: CommentErrorsData &
+		PostDialogErrorData & { comments: string } & SignupErrorsData & {
+			body: string;
+		};
+}
+
 export interface SignupUIData {
 	loading: boolean;
 	errors: SignupErrorsData;

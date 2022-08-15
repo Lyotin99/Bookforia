@@ -1,13 +1,10 @@
 import { Actions } from "../../types";
+import { ActionType } from "./uiTypes";
 
 const initialState = {
 	loading: false,
 	errors: null,
 };
-interface ActionType {
-	type?: string;
-	payload: any;
-}
 
 const userInterface = (state = initialState, action: ActionType) => {
 	switch (action.type) {
