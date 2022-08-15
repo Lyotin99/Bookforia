@@ -27,6 +27,4 @@ const store = createStore(
 	compose(applyMiddleware(...middleware), enhancer)
 );
 
-export type State = ReturnType<typeof reducers>;
-
 export default store;

@@ -1,8 +1,14 @@
 import { useSelector } from "react-redux";
-import { State } from "../redux/store";
+import { UserData, UIData, InitialStateData } from "../utils/Interfaces";
+
+export interface StateToPropsData {
+	data: InitialStateData;
+	UI: UIData;
+	user: UserData;
+}
 
 const useReduxSelector = () => {
-	const mapStateToProps = (state: State) => ({
+	const mapStateToProps = (state: StateToPropsData) => ({
 		data: state.data,
 		UI: state.UI,
 		user: state.user,
