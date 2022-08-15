@@ -4,6 +4,12 @@ import userReducer from "./reducers/userReducer/userReducer";
 import dataReducer from "./reducers/dataReducer/dataReducer";
 import uiReducer from "./reducers/uiReducer/uiReducer";
 
+declare global {
+	interface Window {
+		__REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+	}
+}
+
 const middleware = [thunk];
 
 const reducers = combineReducers({
@@ -12,11 +18,7 @@ const reducers = combineReducers({
 	UI: uiReducer,
 });
 
-const composeEnhancers =
-	typeof window === "object" &&
-	(window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-		? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-		: compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const enhancer = composeEnhancers(applyMiddleware(...middleware));
 const store = createStore(
