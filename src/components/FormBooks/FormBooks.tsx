@@ -7,7 +7,7 @@ interface FormBooksProps {
 }
 
 const FormBooks = (props: FormBooksProps) => {
-	const [error, setError] = useState(false);
+	const [error, setError] = useState<boolean>(false);
 	const [books, setBooks] = useState([]);
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
