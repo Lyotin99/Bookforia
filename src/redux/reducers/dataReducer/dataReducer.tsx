@@ -1,5 +1,5 @@
 import { Actions } from "../../types";
-import { UserActions } from "./dataTypes";
+import { ActionType } from "./dataTypes";
 
 import {
 	deleteComment,
@@ -15,7 +15,7 @@ import {
 	unsavePost,
 } from "./utils";
 
-const postData = (state = initialState, action: UserActions) => {
+const postData = (state = initialState, action: ActionType) => {
 	switch (action.type) {
 		case Actions.LOADING_DATA:
 			return {

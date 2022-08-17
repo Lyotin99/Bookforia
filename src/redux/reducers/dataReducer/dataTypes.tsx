@@ -1,7 +1,7 @@
 import { CommentsData, DateObj, ReplyData } from "../../../utils/Interfaces";
 import { Actions } from "../../types";
 
-export type UserActions =
+export type ActionType =
 	| LoadingData
 	| Posts
 	| SavePost
@@ -12,11 +12,11 @@ export type UserActions =
 	| SubmitComment
 	| DeletePostOrComment;
 
-interface LoadingData {
+export interface LoadingData {
 	type: Actions.LOADING_DATA;
 }
 
-interface Posts {
+export interface Posts {
 	type:
 		| Actions.SET_POST
 		| Actions.SET_SAVED_POSTS
@@ -36,20 +36,21 @@ interface Posts {
 	};
 }
 
-interface SavePost {
+export interface SavePost {
 	type: Actions.SAVE_POST | Actions.UNSAVE_POST;
 	payload: {
 		postId: string;
 		username: string;
+		savedPostId: string;
 	};
 }
 
-interface Replies {
+export interface Replies {
 	type: Actions.SET_REPLIES | Actions.EDIT_REPLY | Actions.POST_REPLY;
 	payload: ReplyData[];
 }
 
-interface DeleteReply {
+export interface DeleteReply {
 	type: Actions.DELETE_REPLY;
 	payload: {
 		commentId: string;
@@ -57,11 +58,11 @@ interface DeleteReply {
 	};
 }
 
-interface LikePost {
+export interface LikePost {
 	type: Actions.LIKE_POST | Actions.UNLIKE_POST;
 }
 
-interface EditComment {
+export interface EditComment {
 	type: Actions.EDIT_COMMENT;
 	payload: {
 		commentId: string;
@@ -69,12 +70,12 @@ interface EditComment {
 	};
 }
 
-interface SubmitComment {
+export interface SubmitComment {
 	type: Actions.SUBMIT_COMMENT;
 	payload: CommentsData;
 }
 
-interface DeletePostOrComment {
+export interface DeletePostOrComment {
 	type: Actions.DELETE_COMMENT | Actions.DELETE_POST;
 	payload: string;
 }
