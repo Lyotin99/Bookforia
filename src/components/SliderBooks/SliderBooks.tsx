@@ -1,11 +1,12 @@
 import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
 import { Pagination, Navigation } from "swiper";
+import { NYTimesBook } from "../../utils/Interfaces";
 
 //Styles
 import "swiper/swiper.min.css";
 import "swiper/modules/navigation/navigation.min.css";
 
-export default function SliderBooks(props: any) {
+export default function SliderBooks(props: { reviewedBooks: NYTimesBook[] }) {
 	const NYTimes = (
 		index: number,
 		book_image: string,
@@ -72,7 +73,7 @@ export default function SliderBooks(props: any) {
 			modules={[Pagination, Navigation]}
 			className="slider-books"
 		>
-			{props.reviewedBooks.map((book: any, index: number) => {
+			{props.reviewedBooks.map((book: NYTimesBook, index: number) => {
 				const {
 					book_image,
 					author,
