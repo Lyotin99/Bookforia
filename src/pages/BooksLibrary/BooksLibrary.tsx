@@ -3,11 +3,18 @@ import BookSpinner from "../../photos/bookSpinner.svg";
 import SliderBooks from "../../components/SliderBooks/SliderBooks";
 import FormBooks from "../../components/FormBooks/FormBooks";
 import booksService from "../../services/booksService";
+import { NYTimesBook } from "../../utils/Interfaces";
 
 const BooksLibrary = () => {
-	const [reviewedBooksFiction, setReviewedBooksFiction] = useState([]);
-	const [reviewedBooksNonFiction, setReviewedBooksNonFiction] = useState([]);
-	const [reviewedBooksPaperback, setReviewedBooksPaperBack] = useState([]);
+	const [reviewedBooksFiction, setReviewedBooksFiction] = useState<
+		NYTimesBook[]
+	>([]);
+	const [reviewedBooksNonFiction, setReviewedBooksNonFiction] = useState<
+		NYTimesBook[]
+	>([]);
+	const [reviewedBooksPaperback, setReviewedBooksPaperBack] = useState<
+		NYTimesBook[]
+	>([]);
 	const [formIsClicked, setFormIsClicked] = useState<boolean>(false);
 
 	useEffect(() => {
