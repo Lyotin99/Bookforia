@@ -12,6 +12,10 @@
 
    .form__login-body {
        padding-bottom: 6rem;
+
+       @include breakpoint-down-mobile-medium {
+            padding-bottom: 2rem; 
+       }
    }
 
    .form__login-error {

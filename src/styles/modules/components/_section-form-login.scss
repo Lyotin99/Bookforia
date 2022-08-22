@@ -13,6 +13,14 @@
         background-color: $c-white;
         border-radius: 1.2rem;
         padding: 4rem 8rem;
+
+        @include breakpoint-down-tablet {
+            padding: 4rem;
+        }
+
+        @include breakpoint-down-mobile-medium {
+            padding: 3rem 2rem;
+        }
     }
 
     .section__head,
@@ -23,6 +31,10 @@
     .section__head {
         text-align: center;
         padding-bottom: 4rem;
+
+        @include breakpoint-down-mobile-medium {
+            padding-bottom: 2rem;
+        }
     }
 
     .section__icon {
