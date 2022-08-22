@@ -61,16 +61,26 @@ export default function SliderBooks(props: { reviewedBooks: NYTimesBook[] }) {
 				type: "fraction",
 				el: ".swiper-pagination",
 			}}
-			slidesPerView={3}
 			spaceBetween={20}
-			slidesPerGroup={3}
-			allowTouchMove={false}
-			effect={"fade"}
 			navigation={{
 				nextEl: ".swiper-button-next",
 				prevEl: ".swiper-button-prev",
 			}}
 			modules={[Pagination, Navigation]}
+			breakpoints={{
+				640: {
+					slidesPerView: 1,
+					slidesPerGroup: 1,
+				},
+				768: {
+					slidesPerView: 2,
+					slidesPerGroup: 2,
+				},
+				1280: {
+					slidesPerView: 3,
+					slidesPerGroup: 3,
+				},
+			}}
 			className="slider-books"
 		>
 			{props.reviewedBooks.map((book: NYTimesBook, index: number) => {

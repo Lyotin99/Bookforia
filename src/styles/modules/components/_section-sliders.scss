@@ -25,5 +25,9 @@
         text-transform: uppercase;
         text-align: center;
         color: $c-base;
+
+        @include breakpoint-down-mobile-medium {
+            font-size: 2.5rem;
+        }
     }
 }

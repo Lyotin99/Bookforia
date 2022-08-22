@@ -44,11 +44,23 @@ h6 {
 .h1,
 h1 {
 	font-size: 4rem;
+
+	@include breakpoint-down-small-desktop {
+		font-size: 3.5rem;
+	}
+
+	@include breakpoint-down-mobile {
+		font-size: 3rem;
+	}
 }
 
 .h2,
 h2 {
 	font-size: 3.5rem;
+
+	@include breakpoint-down-small-desktop {
+		font-size: 3rem;
+	}
 }
 
 .h3,
