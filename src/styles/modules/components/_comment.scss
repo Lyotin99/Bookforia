@@ -7,10 +7,18 @@
     position: relative;
     margin-bottom: 3rem;
 
+    @include breakpoint-down-mobile {
+        grid-template-columns: 6rem calc(100% - 8rem);
+    }
+
     .comment__img {
         position: relative;
         height: 8rem;
         border-radius: 50%;
+
+        @include breakpoint-down-mobile {
+            height: 6rem;
+        }
     }
 
     .comment__img a {
@@ -32,11 +40,19 @@
         background-color: #f1f1f1;
         border-radius: 1.2rem;
         padding: 2rem;
+
+        @include breakpoint-down-mobile {
+            font-size: 1.4rem;
+        }
     }
 
     .comment__meta {
         font-size: 1.2rem;
         padding-bottom: 1rem;
+
+        @include breakpoint-down-mobile {
+            font-size: 1rem;
+        }
     }
     
     .comment__delete-btn {

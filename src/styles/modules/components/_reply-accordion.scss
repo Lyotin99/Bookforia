@@ -21,6 +21,10 @@
         font-size: 1.2rem;
         text-decoration: underline;
 
+        @include breakpoint-down-mobile-medium {
+            padding-left: 8rem;
+        }
+
         &:hover {
             text-decoration: none;
         }

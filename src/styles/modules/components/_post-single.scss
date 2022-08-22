@@ -10,11 +10,23 @@
     align-items: flex-start;
     position: relative;
 
+    @include breakpoint-down-mobile {
+        grid-template-columns: 8rem calc(100% - 10rem);
+    }
+
+    @include breakpoint-down-mobile {
+        padding: 4rem 1.5rem;
+    }
+
     .post__single-img {
         position: relative;
         overflow: hidden;
         border-radius: 50%;
         min-height: 14rem;
+
+        @include breakpoint-down-mobile {
+            min-height: 8rem;
+        }
 
         &:hover {
             img {
@@ -35,15 +47,27 @@
 
     .post__single-content {
         padding: 1rem;
+
+        @include breakpoint-down-mobile {
+            padding: 1rem 0;
+        }
     }
 
     .post__single-entry {
         margin-bottom: 1rem;
+
+        @include breakpoint-down-mobile {
+            font-size: 1.4rem;
+        }
     }
 
     .post__single-meta {
         font-size: 1.2rem;
         padding-bottom: 1.5rem;
+
+        @include breakpoint-down-mobile {
+            font-size: 1rem;
+        }
     }
 
     .post__single-likes-comments {
@@ -51,6 +75,10 @@
         flex-wrap: wrap;
         gap: 2rem;
         padding-bottom: 4rem;
+
+        @include breakpoint-down-mobile {
+            font-size: 1.4rem;
+        }
     }
 
     .post__single-likes,
@@ -73,6 +101,10 @@
     .post__single-edit svg {
         color: $c-base;
         font-size: 2rem;
+
+        @include breakpoint-down-mobile {
+            font-size: 1.6rem;
+        }   
     }
 
     .post__single-edit {

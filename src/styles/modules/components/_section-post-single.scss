@@ -3,12 +3,24 @@
 .section-post-single {
     padding: 8rem 0 20rem;
 
+    @include breakpoint-down-small-desktop {
+        padding: 8rem 0;
+    }
+
+    @include breakpoint-down-mobile {
+        padding: 0;
+    }
+
     .section__inner {
         max-width: 95rem;
         margin: 0 auto;
         display: flex;
         flex-flow: column;
         align-items: center;
+
+        @include breakpoint-down-mobile {
+            margin: 0 -1.5rem;
+        }
     }
 
     .section__inner > * {

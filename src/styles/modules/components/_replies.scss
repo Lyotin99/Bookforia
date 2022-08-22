@@ -2,6 +2,17 @@
 
 .replies {
     grid-column: 2/3;
+
+    @include breakpoint-down-mobile-medium {
+        grid-column: -1/1;
+        padding-left: 1rem;
+    }
+
+    .MuiAccordionDetails-root {
+        @include breakpoint-down-mobile-medium {
+            padding: 0;
+        }
+    }
 }
 
 //Reply
@@ -13,6 +24,10 @@
     position: relative;
     margin-bottom: 2rem;
 
+    @include breakpoint-down-mobile {
+        grid-template-columns: 4rem calc(100% - 6rem);
+    }
+
     &:last-child {
         margin-bottom: 0;
     }
@@ -21,6 +36,10 @@
         position: relative;
         height: 6rem;
         border-radius: 50%;
+
+        @include breakpoint-down-mobile {
+            height: 4rem;
+        }
     }
 
     .reply__img a {
@@ -42,11 +61,19 @@
         background-color: #f1f1f1;
         border-radius: 1.2rem;
         padding: 2rem;
+
+        @include breakpoint-down-mobile {
+            font-size: 1.4rem;
+        }
     }
 
     .reply__meta {
         font-size: 1.2rem;
         padding-bottom: 1rem;
+
+        @include breakpoint-down-mobile {
+            font-size: 1rem;
+        }
     }
     
     .reply__delete-btn {

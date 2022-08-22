@@ -40,5 +40,17 @@
     .section__inner {
         grid-template-columns: calc(100% - 40rem);
         justify-content: center;
+
+        @include breakpoint-down-small-desktop {
+            grid-template-columns: calc(100% - 30rem);
+        }
+
+        @include breakpoint-down-tablet {
+            grid-template-columns: calc(100% - 15rem);
+        }
+
+        @include breakpoint-down-mobile {
+            grid-template-columns: 100%;
+        }
     }
 }
