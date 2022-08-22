@@ -7,6 +7,30 @@
         display: grid;
         grid-template-columns: calc(100% - 40rem) 35rem;
         gap: 5rem;
+        
+        @include breakpoint-down-small-desktop {
+            grid-template-columns: calc(100% - 37rem) 35rem;
+            gap: 2rem;
+        }
+
+        @include breakpoint-down-tablet {
+            grid-template-columns: 100%;
+        }
+
+        .section__aside {
+            @include breakpoint-down-tablet {
+                order: 1;
+                max-width: 35rem;
+                width: 100%;
+            }   
+        }
+
+        .section__content {
+            @include breakpoint-down-tablet {
+                order: 2;
+            }
+        }
+        
     }
 }
 
