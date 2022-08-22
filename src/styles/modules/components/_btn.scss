@@ -18,6 +18,11 @@
     -webkit-appearance: none;
     -moz-appearance: none;
 
+    @include breakpoint-down-mobile {
+        font-size: 1.4rem;
+        padding: 1rem 1.4rem;
+    }
+
 	&:hover {
 		background-color: $c-secondary;
 	}

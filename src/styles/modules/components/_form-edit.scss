@@ -5,6 +5,14 @@
     max-width: 60rem;
     width: 40rem;
 
+    @include breakpoint-down-mobile-medium {
+        width: 30rem;
+    }
+
+    @include breakpoint-down-mobile-small {
+        width: auto;
+    }
+
     .form__row {
         padding-bottom: 1rem;
 

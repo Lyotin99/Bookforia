@@ -22,7 +22,7 @@
         box-shadow: 0 0 .6rem 0 rgba(0,0,0, .2);
 
         @include breakpoint-down-mobile-medium {
-            padding-bottom: 50%;
+            padding-bottom: 90%;
             border-radius:  1rem 1rem 0 0;
         }
 
