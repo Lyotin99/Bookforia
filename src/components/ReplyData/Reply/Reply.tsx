@@ -44,6 +44,7 @@ const Reply = (props: ReplyProps) => {
 	const data = useReduxSelector();
 	const dispatch = useDispatch();
 	const { credentials } = data.user;
+	const { comments } = data.data.post;
 
 	const handleSubmit = () => {
 		dispatch(getReplies(props.commentId));
@@ -66,100 +67,92 @@ const Reply = (props: ReplyProps) => {
 		};
 
 	const repliesMarkup =
-		data.data.post.comments[props.index].replies &&
-		data.data.post.comments[props.index].replies.length > 0 ? (
-			data.data.post.comments[props.index].replies?.map(
-				(reply: ReplyData) => {
-					const {
-						body,
-						createdAt,
-						userImage,
-						username,
-						replyId,
-						commentId,
-					} = reply;
+		comments[props.index].replies &&
+		comments[props.index].replies.length > 0 ? (
+			comments[props.index].replies?.map((reply: ReplyData) => {
+				const {
+					body,
+					createdAt,
+					userImage,
+					username,
+					replyId,
+					commentId,
+				} = reply;
 
-					const deleteReplyBtn =
-						credentials.username === username ? (
-							<DeletePopup
-								replyId={replyId}
-								commentId={commentId}
-								deleteElement={deleteReply}
-								text="reply"
-							/>
-						) : (
-							""
-						);
+				const deleteReplyBtn =
+					credentials.username === username ? (
+						<DeletePopup
+							replyId={replyId}
+							commentId={commentId}
+							deleteElement={deleteReply}
+							text="reply"
+						/>
+					) : (
+						""
+					);
 
-					const editReplyBtn =
-						credentials.username === username ? (
-							<EditPopup
-								elementId={replyId}
-								body={body}
-								editElementObject={editReply}
-								text="reply"
-							/>
-						) : (
-							""
-						);
-					return (
-						<div className="reply" key={reply.replyId}>
-							<div className="reply__img">
+				const editReplyBtn =
+					credentials.username === username ? (
+						<EditPopup
+							elementId={replyId}
+							body={body}
+							editElementObject={editReply}
+							text="reply"
+						/>
+					) : (
+						""
+					);
+				return (
+					<div className="reply" key={reply.replyId}>
+						<div className="reply__img">
+							<Link to={`/users/${username}`}>
+								<img src={userImage} alt={username} />
+							</Link>
+						</div>
+
+						<div className="reply__content">
+							<h6>
 								<Link to={`/users/${username}`}>
-									<img src={userImage} alt={username} />
+									{username}
 								</Link>
+							</h6>
+
+							<div className="reply__meta">
+								<p>
+									<em>
+										{" "}
+										{typeof createdAt !== "number"
+											? dayjs(
+													new Date(
+														createdAt._seconds! *
+															1000
+													)
+											  ).format("h:mm a, MMMM DD YYYY")
+											: dayjs(
+													new Date(createdAt * 1000)
+											  ).format("h:mm a, MMMM DD YYYY")}
+									</em>
+								</p>
 							</div>
 
-							<div className="reply__content">
-								<h6>
-									<Link to={`/users/${username}`}>
-										{username}
-									</Link>
-								</h6>
+							<div className="reply__entry">
+								<p>{body}</p>
+							</div>
 
-								<div className="reply__meta">
-									<p>
-										<em>
-											{" "}
-											{typeof createdAt !== "number"
-												? dayjs(
-														new Date(
-															createdAt._seconds! *
-																1000
-														)
-												  ).format(
-														"h:mm a, MMMM DD YYYY"
-												  )
-												: dayjs(
-														new Date(
-															createdAt * 1000
-														)
-												  ).format(
-														"h:mm a, MMMM DD YYYY"
-												  )}
-										</em>
-									</p>
-								</div>
+							<div className="reply__delete-btn">
+								{deleteReplyBtn}
+							</div>
 
-								<div className="reply__entry">
-									<p>{body}</p>
-								</div>
-
-								<div className="reply__delete-btn">
-									{deleteReplyBtn}
-								</div>
-
-								<div className="reply__edit-btn">
-									{editReplyBtn}
-								</div>
+							<div className="reply__edit-btn">
+								{editReplyBtn}
 							</div>
 						</div>
-					);
-				}
-			)
-		) : data.data.post.comments[props.index].repliesCount > 0 ? (
+					</div>
+				);
+			})
+		) : comments[props.index].repliesCount > 0 ? (
 			<img
-				className="spinner spinner--small spinner--left-aligned"
+				className="spinner spinner--small spinner--left-aligned spinner--relative"
 				src={BookSpinner}
 				alt="Spinner"
 			/>
@@ -194,11 +187,9 @@ const Reply = (props: ReplyProps) => {
 						className="reply__accordion-summary"
 					>
 						<p>
-							{data.data.post.comments[props.index].repliesCount >
-							0
+							{comments[props.index].repliesCount > 0
 								? replyBarStatus
-								: data.data.post.comments[props.index]
-										.repliesCount === 0 &&
+								: comments[props.index].repliesCount === 0 &&
 								  data.user.authenticated
 								? "Reply"
 								: ""}
