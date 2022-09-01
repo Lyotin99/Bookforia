@@ -2,9 +2,9 @@ import "./styles/load.scss";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import AuthRoute from "./components/Common/AuthRoute";
 import Footer from "./components/Footer/Footer";
+import axios from "axios";
 //Redux
-import { Provider } from "react-redux";
-import store from "./redux/store";
+
 // Pages
 import home from "./pages/Homepage/Homepage";
 import login from "./pages/Login/Login";
@@ -14,10 +14,34 @@ import Navbar from "./components/Header/Header";
 import user from "./pages/User/User";
 import savedPosts from "./pages/SavedPost/SavedPost";
 import SinglePostPage from "./pages/SinglePost/SinglePost";
+import jwtDecode from "jwt-decode";
+import { getUserData, logoutUser } from "./redux/actions/userActions";
+import { Actions } from "./redux/types";
+import { useDispatch } from "react-redux";
+
+axios.defaults.baseURL =
+	"https://europe-west1-social-media-backend-41ded.cloudfunctions.net/api";
 
 function App() {
+	const token: string = localStorage.FBIdToken;
+	const dispatch = useDispatch();
+
+	if (token) {
+		const decodedToken: { exp?: number } = jwtDecode(token);
+		let expirationTime = decodedToken.exp ? decodedToken.exp * 1000 : 0;
+
+		if (expirationTime <= Date.now()) {
+			dispatch(logoutUser());
+			window.location.pathname = "/";
+		} else {
+			dispatch({ type: Actions.SET_AUTHENTICATED });
+
+			dispatch(getUserData());
+		}
+	}
+
 	return (
-		<Provider store={store}>
+		<>
 			<div className="wrapper">
 				<div className="wrapper__inner">
 					<BrowserRouter>
@@ -57,7 +81,7 @@ function App() {
 					</BrowserRouter>
 				</div>
 			</div>
-		</Provider>
+		</>
 	);
 }
 
