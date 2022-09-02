@@ -1,19 +1,21 @@
 import { Route, Redirect } from "react-router-dom";
 import useReduxSelector from "../../hooks/useReduxSelector";
 
-const AuthRoute = ({ component: Component, ...rest }: any) => {
+const AuthRoute = ({
+	component: Component,
+	path,
+}: {
+	component: React.ElementType;
+	path: string;
+}) => {
 	const data = useReduxSelector();
 	const { authenticated } = data.user;
 
 	return (
 		<Route
-			{...rest}
+			{...path}
 			render={(props) =>
-				authenticated === true ? (
-					<Redirect to="/" />
-				) : (
-					<Component {...props} />
-				)
+				authenticated ? <Redirect to="/" /> : <Component {...props} />
 			}
 		/>
 	);
