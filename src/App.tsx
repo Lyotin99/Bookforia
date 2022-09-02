@@ -26,19 +26,7 @@ function App() {
 	const token: string = localStorage.FBIdToken;
 	const dispatch = useDispatch();
 
-	if (token) {
-		const decodedToken: { exp?: number } = jwtDecode(token);
-		let expirationTime = decodedToken.exp ? decodedToken.exp * 1000 : 0;
-
-		if (expirationTime <= Date.now()) {
-			dispatch(logoutUser());
-			window.location.pathname = "/";
-		} else {
-			dispatch({ type: Actions.SET_AUTHENTICATED });
-
-			dispatch(getUserData());
-		}
-	}
+	if (token) dispatch({ type: Actions.SET_AUTHENTICATED });
 
 	return (
 		<>
