@@ -1,13 +1,12 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 
-export const axiosGet = (
+export function axiosGet<T>(
 	pathUrl: string,
 	resultType: string,
 	errorType: string,
-	errorData: any,
 	dispatch: Dispatch
-): Promise<any> => {
+): Promise<void | { payload: T }> {
 	return axios
 		.get(pathUrl, {
 			headers: {
@@ -20,18 +19,18 @@ export const axiosGet = (
 		.catch(() => {
 			dispatch({
 				type: errorType,
-				payload: errorData,
+				payload: [],
 			});
 		});
-};
+}
 
-export const axiosPost = (
+export function axiosPost<T>(
 	pathUrl: string,
-	obj: any,
+	obj: T,
 	resultType: string,
 	errorType: string,
 	dispatch: Dispatch
-): Promise<any> => {
+): Promise<void | { payload: T }> {
 	return axios
 		.post(pathUrl, obj, {
 			headers: {
@@ -50,23 +49,23 @@ export const axiosPost = (
 				payload: err.response.data,
 			});
 		});
-};
+}
 
-export const axiosPostNoFetch = (pathUrl: string, obj: any): Promise<any> => {
+export function axiosPostNoFetch<T>(pathUrl: string, obj: T): Promise<T> {
 	return axios.post(pathUrl, obj, {
 		headers: {
 			Authorization: localStorage.getItem("FBIdToken"),
 		},
 	});
-};
+}
 
-export const axiosPut = (
+export function axiosPut<T>(
 	pathUrl: string,
-	obj: any,
+	obj: T,
 	resultType: string,
 	errorType: string,
 	dispatch: Dispatch
-): Promise<any> => {
+): Promise<void | { payload: T }> {
 	return axios
 		.put(pathUrl, obj, {
 			headers: {
@@ -85,19 +84,19 @@ export const axiosPut = (
 				payload: err.response.data,
 			});
 		});
-};
+}
 
 interface AxiosDelete {
 	commentId: string;
 	replyId: string;
 }
 
-export const axiosDelete = (
+export function axiosDelete<T>(
 	pathUrl: string,
 	resultType: string,
 	resultData: string | AxiosDelete,
 	dispatch: Dispatch
-): Promise<any> => {
+): Promise<void | { payload: T }> {
 	return axios
 		.delete(pathUrl, {
 			headers: {
@@ -113,4 +112,4 @@ export const axiosDelete = (
 		.catch((err) => {
 			console.log(err);
 		});
-};
+}

@@ -7,7 +7,7 @@ import { AuthData, History, UserDetails } from "../../utils/Interfaces";
 
 export const getUserData = () => (dispatch: Dispatch) => {
 	dispatch({ type: Actions.LOADING_USER });
-	axiosGet("/user", Actions.SET_USER, Actions.SET_USER, [], dispatch);
+	axiosGet("/user", Actions.SET_USER, Actions.SET_USER, dispatch);
 };
 
 export const loginUser =

@@ -26,7 +26,6 @@ export const getReplies = (commentId: string) => (dispatch: Dispatch) => {
 		`/comments/${commentId}`,
 		Actions.SET_REPLIES,
 		Actions.SET_REPLIES,
-		[],
 		dispatch
 	);
 };

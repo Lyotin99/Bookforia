@@ -15,14 +15,13 @@ export const getSavedPosts = () => (dispatch: Dispatch) => {
 		"/saved",
 		Actions.SET_SAVED_POSTS,
 		Actions.SET_SAVED_POSTS,
-		[],
 		dispatch
 	);
 };
 
 export const getPosts = () => (dispatch: Dispatch) => {
 	dispatch({ type: Actions.LOADING_DATA });
-	axiosGet("/posts", Actions.SET_POSTS, Actions.SET_POSTS, [], dispatch);
+	axiosGet("/posts", Actions.SET_POSTS, Actions.SET_POSTS, dispatch);
 };
 
 export const createPost =
@@ -43,7 +42,6 @@ export const savePost = (postId: string) => (dispatch: Dispatch) => {
 		`/saved/${postId}`,
 		Actions.SAVE_POST,
 		Actions.SAVE_POST,
-		[],
 		dispatch
 	);
 };
@@ -53,7 +51,6 @@ export const unSavePost = (postId: string) => (dispatch: Dispatch) => {
 		`/unsaved/${postId}`,
 		Actions.UNSAVE_POST,
 		Actions.UNSAVE_POST,
-		[],
 		dispatch
 	);
 };
@@ -63,7 +60,6 @@ export const likePost = (postId: string) => (dispatch: Dispatch) => {
 		`/post/${postId}/like`,
 		Actions.LIKE_POST,
 		Actions.LIKE_POST,
-		[],
 		dispatch
 	);
 };
@@ -73,7 +69,6 @@ export const unlikePost = (postId: string) => (dispatch: Dispatch) => {
 		`/post/${postId}/unlike`,
 		Actions.UNLIKE_POST,
 		Actions.UNLIKE_POST,
-		[],
 		dispatch
 	);
 };
@@ -84,7 +79,6 @@ export const getPost = (postId: string) => async (dispatch: Dispatch) => {
 		`/post/${postId}`,
 		Actions.SET_POST,
 		Actions.SET_POST,
-		[],
 		dispatch
 	);
 
