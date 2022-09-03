@@ -70,11 +70,14 @@ const userData = (state = initialState, action: ActionType) => {
 				),
 			};
 		case Actions.MARK_NOTIFICATIONS_READ:
-			state.notifications?.forEach((not) => {
+			const notifications = state.notifications?.map((not) => {
 				not.read = true;
+
+				return not;
 			});
 			return {
 				...state,
+				notifications,
 				loading: false,
 			};
 		default:

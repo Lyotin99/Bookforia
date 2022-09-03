@@ -6,8 +6,10 @@ export type ActionType =
 	| Posts
 	| SavePost
 	| Replies
+	| PostReply
+	| EditReply
 	| DeleteReply
-	| LikePost
+	| EditPost
 	| EditComment
 	| SubmitComment
 	| DeletePostOrComment;
@@ -22,7 +24,8 @@ export interface Posts {
 		| Actions.SET_SAVED_POSTS
 		| Actions.SET_POSTS
 		| Actions.POST_POST
-		| Actions.EDIT_POST;
+		| Actions.LIKE_POST
+		| Actions.UNLIKE_POST;
 	payload: {
 		postId: string;
 		body: string;
@@ -36,6 +39,11 @@ export interface Posts {
 	};
 }
 
+export interface EditPost {
+	type: Actions.EDIT_POST;
+	payload: string;
+}
+
 export interface SavePost {
 	type: Actions.SAVE_POST | Actions.UNSAVE_POST;
 	payload: {
@@ -46,8 +54,13 @@ export interface SavePost {
 }
 
 export interface Replies {
-	type: Actions.SET_REPLIES | Actions.EDIT_REPLY | Actions.POST_REPLY;
+	type: Actions.SET_REPLIES;
 	payload: ReplyData[];
+}
+
+export interface PostReply {
+	type: Actions.POST_REPLY;
+	payload: ReplyData;
 }
 
 export interface DeleteReply {
@@ -58,9 +71,14 @@ export interface DeleteReply {
 	};
 }
 
-export interface LikePost {
-	type: Actions.LIKE_POST | Actions.UNLIKE_POST;
+export interface EditReply {
+	type: Actions.EDIT_REPLY;
+	payload: { body: string; replyId: string; commentId: string };
 }
+
+// export interface LikePost {
+// 	type: Actions.LIKE_POST | Actions.UNLIKE_POST;
+// }
 
 export interface EditComment {
 	type: Actions.EDIT_COMMENT;

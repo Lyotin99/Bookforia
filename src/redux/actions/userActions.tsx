@@ -6,19 +6,18 @@ import { Dispatch } from "redux";
 import { AuthData, History, UserDetails } from "../../utils/Interfaces";
 
 export const getUserData = () => (dispatch: Dispatch) => {
-	dispatch({ type: Actions.LOADING_USER });
 	axiosGet("/user", Actions.SET_USER, Actions.SET_USER, dispatch);
 };
 
 export const loginUser =
-	(userData: AuthData, history: History) => (dispatch: Dispatch<any>) => {
-		dispatch({ type: Actions.LOADING_UI });
+	(userData: AuthData, history: History) => (dispatch: Dispatch) => {
+		dispatch({ type: Actions.LOADING_USER });
 		authService("/login", userData, history, dispatch);
 	};
 
 export const signupUser =
-	(newUserData: AuthData, history: History) => (dispatch: Dispatch<any>) => {
-		dispatch({ type: Actions.LOADING_UI });
+	(newUserData: AuthData, history: History) => (dispatch: Dispatch) => {
+		dispatch({ type: Actions.LOADING_USER });
 		authService("/signup", newUserData, history, dispatch);
 	};
 
@@ -30,7 +29,6 @@ export const logoutUser = () => (dispatch: Dispatch) => {
 
 export const uploadImage =
 	(formData: FormData) => (dispatch: Dispatch<any>) => {
-		dispatch({ type: Actions.LOADING_USER });
 		axiosPostNoFetch("/user/image", formData)
 			.then(() => {
 				dispatch(getUserData());
@@ -42,7 +40,6 @@ export const uploadImage =
 
 export const editUserDetails =
 	(userDetails: UserDetails) => (dispatch: Dispatch<any>) => {
-		dispatch({ type: Actions.LOADING_USER });
 		axiosPostNoFetch("/user", userDetails)
 			.then(() => {
 				dispatch(getUserData());

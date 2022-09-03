@@ -1,4 +1,15 @@
 import { InitialStateData } from "../../../utils/Interfaces";
+import {
+	DeletePostOrComment,
+	DeleteReply,
+	EditComment,
+	EditReply,
+	Posts,
+	Replies,
+	SavePost,
+} from "./dataTypes";
+
+import { ReplyData } from "../../../utils/Interfaces";
 
 export const initialState: InitialStateData = {
 	posts: [],
@@ -42,145 +53,205 @@ export const initialState: InitialStateData = {
 	loading: false,
 };
 
-export const setReplies = (state: InitialStateData, action: any) => {
-	let repliesCounter = 0;
+export const setReplies = (state: InitialStateData, action: Replies) => {
 	if (action.payload[0]) {
-		for (let i = 0; i < state.post.comments.length; i++) {
-			if (
-				state.post.comments[i].commentId === action.payload[0].commentId
-			) {
-				break;
+		const replies = state.post.comments.map((el) => {
+			if (el.commentId === action.payload[0].commentId) {
+				el.replies = [...action.payload];
 			}
-			repliesCounter++;
-		}
 
-		state.post.comments[repliesCounter].replies = action.payload;
-	}
-	return {
-		...state,
-	};
+			return el;
+		});
+
+		return {
+			...state,
+			post: {
+				...state.post,
+				comments: replies,
+			},
+		};
+	} else return state;
 };
 
-export const deleteReply = (state: InitialStateData, action: any) => {
-	let index = state.post.comments.findIndex(
-		(comment) => comment.commentId === action.payload.commentId
-	);
+export const deleteReply = (state: InitialStateData, action: DeleteReply) => {
+	const commentsWithDeletedReply = state.post.comments.map((comment) => {
+		comment.commentId === action.payload.commentId &&
+			comment.repliesCount--;
 
-	let replyIndex = state.post.comments[index].replies.findIndex(
-		(reply) => reply.replyId === action.payload.replyId
-	);
+		const replies = comment.replies.filter(
+			(el) => el.replyId !== action.payload.replyId && el
+		);
 
-	state.post.comments[index].repliesCount--;
-	state.post.comments[index].replies.splice(replyIndex, 1);
-	return {
-		...state,
-	};
-};
+		comment.replies = [...replies];
 
-export const editReply = (state: InitialStateData, action: any) => {
-	const index = state.post.comments.findIndex(
-		(com) => com.commentId === action.payload.commentId
-	);
-	let replyData = state.post.comments[index].replies.filter(
-		(reply) => reply.replyId === action.payload.replyId
-	);
-
-	replyData[0].body = action.payload.body;
-
-	return {
-		...state,
-	};
-};
-
-export const unsavePost = (state: InitialStateData, action: any) => {
-	let index = state.posts.findIndex(
-		(post) => post.postId === action.payload.savedPostId
-	);
-	if (window.location.pathname === "/users/saved/")
-		state.posts.splice(index, 1);
-
-	return {
-		...state,
-	};
-};
-
-export const likeUnlikePost = (state: InitialStateData, action: any) => {
-	let index = state.posts.findIndex(
-		(post) => post.postId === action.payload.postId
-	);
-
-	state.posts[index] = action.payload;
-	state.post.likeCount = action.payload.likeCount;
-	return {
-		...state,
-	};
-};
-
-export const editPost = (state: InitialStateData, action: any) => {
-	let counter = 0;
-	for (let i = 0; i < state.posts.length; i++) {
-		if (state.post.postId === state.posts[i].postId) {
-			break;
-		} else counter++;
-	}
-	state.posts[counter].body = action.payload;
-	state.post.body = action.payload;
-	return {
-		...state,
-	};
-};
-
-export const editComment = (state: InitialStateData, action: any) => {
-	const commentId = state.post.comments.filter(
-		(com) => com.commentId === action.payload.commentId
-	);
-	commentId[0].body = action.payload.body;
+		return comment;
+	});
 
 	return {
 		...state,
 		post: {
 			...state.post,
-			comments: [...state.post.comments],
+			comments: commentsWithDeletedReply,
 		},
 	};
 };
 
-export const postReply = (state: InitialStateData, action: any) => {
-	let counter = 0;
-	for (let i = 0; i < state.post.comments.length; i++) {
-		if (state.post.comments[i].commentId === action.payload.commentId) {
-			break;
-		}
-		counter++;
-	}
+export const editReply = (state: InitialStateData, action: EditReply) => {
+	const commentsWitEditedReply = state.post.comments.map((comment) => {
+		const editedReply = comment.replies.find(
+			(reply) => reply.replyId === action.payload.replyId
+		);
 
-	state.post.comments[counter].replies.push(action.payload);
-	state.post.comments[counter].repliesCount++;
+		if (editedReply) editedReply.body = action.payload.body;
 
-	return {
-		...state,
-	};
-};
+		return comment;
+	});
 
-export const deletePost = (state: InitialStateData, action: any) => {
-	let index = state.posts.findIndex((post) => post.postId === action.payload);
-	state.posts.splice(index, 1);
-	return {
-		...state,
-	};
-};
-
-export const deleteComment = (state: InitialStateData, action: any) => {
-	let index = state.post.comments.findIndex(
-		(comment) => comment.commentId === action.payload
-	);
-	state.post.commentCount--;
-	state.post.comments.splice(index, 1);
 	return {
 		...state,
 		post: {
 			...state.post,
-			comments: [...state.post.comments],
+			comments: commentsWitEditedReply,
+		},
+	};
+};
+
+export const unsavePost = (state: InitialStateData, action: SavePost) => {
+	let index = state.posts.findIndex(
+		(post) => post.postId === action.payload.savedPostId
+	);
+
+	if (window.location.pathname === "/users/saved/") {
+		const remainingPosts = [
+			...state.posts.slice(0, index),
+			...state.posts.slice(index + 1),
+		];
+
+		return {
+			...state,
+			posts: remainingPosts,
+		};
+	} else return state;
+};
+
+export const likeUnlikePost = (state: InitialStateData, action: Posts) => {
+	const posts = state.posts.map((post) => {
+		if (post.postId === action.payload.postId) {
+			post.likeCount = action.payload.likeCount;
+		}
+
+		return post;
+	});
+
+	return {
+		...state,
+		posts: posts,
+		post: {
+			...state.post,
+			likeCount: action.payload.likeCount,
+		},
+	};
+};
+
+export const editPost = (
+	state: InitialStateData,
+	action: { payload: string }
+) => {
+	const posts = state.posts.map((post) => {
+		if (post.postId === state.post.postId) {
+			post.body = action.payload;
+		}
+
+		return post;
+	});
+
+	return {
+		...state,
+		posts: posts,
+		post: {
+			...state.post,
+			body: action.payload,
+		},
+	};
+};
+
+export const editComment = (state: InitialStateData, action: EditComment) => {
+	const commentsWithEditedComment = state.post.comments.map((comment) => {
+		if (comment.commentId === action.payload.commentId) {
+			comment.body = action.payload.body;
+		}
+
+		return comment;
+	});
+
+	return {
+		...state,
+		post: {
+			...state.post,
+			comments: commentsWithEditedComment,
+		},
+	};
+};
+
+export const postReply = (
+	state: InitialStateData,
+	action: { payload: ReplyData }
+) => {
+	const commentsWithAddedReply = state.post.comments.map((comment) => {
+		if (comment.commentId === action.payload.commentId) {
+			comment.repliesCount++;
+			comment.replies = [...comment.replies, action.payload];
+		}
+
+		return comment;
+	});
+
+	return {
+		...state,
+		post: {
+			...state.post,
+			comments: commentsWithAddedReply,
+		},
+	};
+};
+
+export const deletePost = (
+	state: InitialStateData,
+	action: DeletePostOrComment
+) => {
+	const index = state.posts.findIndex(
+		(post) => post.postId === action.payload
+	);
+
+	const posts = [
+		...state.posts.slice(0, index),
+		...state.posts.slice(index + 1),
+	];
+
+	return {
+		...state,
+		posts,
+	};
+};
+
+export const deleteComment = (
+	state: InitialStateData,
+	action: DeletePostOrComment
+) => {
+	const index = state.post.comments.findIndex(
+		(comment) => comment.commentId === action.payload
+	);
+
+	const comments = [
+		...state.post.comments.slice(0, index),
+		...state.post.comments.slice(index + 1),
+	];
+	return {
+		...state,
+		post: {
+			...state.post,
+			commentCount: state.post.commentCount--,
+			comments,
 		},
 	};
 };
